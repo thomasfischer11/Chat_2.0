@@ -7,7 +7,8 @@ import java.util.*;
 public class Server {
 
     private HashSet<ClientThread> clientThreads = new HashSet<>();
-    private HashMap<String, User> users = new HashMap<String, User>();
+    private HashMap<String, User> users = new HashMap<>();
+    private HashMap<String, HashSet<ClientThread>> rooms = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         try {
