@@ -12,11 +12,11 @@ public class ClientReader extends Thread {
     private DataInputStream in;
     private String messageReceived;
 
-    Runnable connectedUpdater = new Runnable() {
+    Runnable loggedInUpdater = new Runnable() {
         @Override
         public void run() {
-                    client.getController().connect();
-                    client.showMessage("Connected!");
+            client.getController().login();
+            client.showMessage("Logged In!");
         }
     };
     /*Runnable requestNameUpdater = new Runnable() {
@@ -38,7 +38,7 @@ public class ClientReader extends Thread {
     Runnable messageUpdater = new Runnable() {
         @Override
         public void run() {
-            if (client.isConnected()) client.showMessage(messageReceived);
+            if (client.isLoggedIn()) client.showMessage(messageReceived);
         }
     };
 
@@ -57,8 +57,8 @@ public class ClientReader extends Thread {
                 if(messageReceived.startsWith("/")){
                     if(messageReceived.equals("/requestName")) client.getController().getName();
                     else if(messageReceived.equals("/requestPW")) client.getController().getPW();
-                    else if(messageReceived.equals("/registered") || messageReceived.equals("/connected")) {
-                        Platform.runLater(connectedUpdater);
+                    else if(messageReceived.equals("/registered") || messageReceived.equals("/loggedIn")) {
+                        Platform.runLater(loggedInUpdater);
                     }
                     else if (messageReceived.equals("/errAlreadyOnline") || messageReceived.equals("/errNotRegistered") || messageReceived.equals("/errWrongPW") || messageReceived.equals("/errAlreadyRegistered")){
                         Platform.runLater(errorUpdater);

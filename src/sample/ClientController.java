@@ -72,7 +72,7 @@ public class ClientController {
 
     private void sendMessage(String message) throws IOException {
         client.sendMessage(message);
-        txtFieldClient.setText("");
+        if (client.isLoggedIn()) txtFieldClient.setText("");
     }
     
     public ArrayList<String> splitEqually(String text, int size) {
@@ -86,26 +86,24 @@ public class ClientController {
 
     @FXML
     private void onConnectClicked (MouseEvent event) throws IOException {
-        labelError.setVisible(false);
-        if (client.isConnected()) {
-            disconnect();
+        labelError.setText("");
+        if (!client.isLoggedIn()) {
+            if (txtFieldUsername.getText().equals("") || pwField.getText().equals("")){
+                labelError.setText("Enter Name and Password!");
+                labelError.setVisible(true);
+                return;
+            }
+            else if (register && !pwField.getText().equals(pwField2.getText())){
+                labelError.setText("Passwords do not match!");
+                labelError.setVisible(true);
+                return;
+            }
+            if (register) sendMessage("/register");
+            else sendMessage("/login");
+        } else {
+            logOut();
             return;
         }
-        else if (txtFieldUsername.getText().equals("") || pwField.getText().equals("")){
-            labelError.setText("Name und Passwort eingeben!");
-            labelError.setVisible(true);
-            return;
-        }
-        else if (register && !pwField.getText().equals(pwField2.getText())){
-            labelError.setText("Passwörter stimmen nicht überein");
-            labelError.setVisible(true);
-            return;
-        }
-        else if (register) sendMessage("/register");
-        else sendMessage("/login");
-        //client.setConnected(true);
-        register = false;
-        return;
     }
 
     @FXML
@@ -148,8 +146,9 @@ public class ClientController {
         labelError.setVisible(true);
     }
 
-    public void connect() {
-        buttonConnect.setText("Disconnect");
+    public void login() {
+        client.setLoggedIn(true);
+        buttonConnect.setText("Log out");
         txtFieldClient.setEditable(true);
         labelLoginRegister.setVisible(false);
         buttonChangeLoginRegister.setVisible(false);;
@@ -158,11 +157,13 @@ public class ClientController {
         pwField.setVisible(false);
         pwField2.setVisible(false);
         labelError.setVisible(false);
+        register = false;
     }
 
-    public void disconnect() throws IOException {
-        client.sendMessage("/disconnect");
-        buttonConnect.setText("Connect");
+    public void logOut() throws IOException {
+        client.setLoggedIn(false);
+        client.sendMessage("/logout");
+        buttonConnect.setText("Log in");
         txtFieldClient.setEditable(false);
         labelLoginRegister.setVisible(true);
         buttonChangeLoginRegister.setVisible(true);;

@@ -38,8 +38,8 @@ public class ClientThread extends Thread {
             String clientMessage;
             while (isRunning) {
                 clientMessage = in.readUTF();
-                if (clientMessage.equals("/disconnect")) {
-                    sendMessage("Disconnected");
+                if (clientMessage.equals("/logout")) {
+                    sendMessage("Logged out");
                     server.sendToAll(clientName + " disconnected", this);
                     server.getUsers().get(clientName).setOnline(false);
                     server.getClientThreads().remove(this);
@@ -60,12 +60,12 @@ public class ClientThread extends Thread {
     }
 
     private void registerLogin() throws IOException {
+        System.out.println("registerlogin...");
         String registerOrLogin = in.readUTF();
         requestClientName();
         this.clientName = in.readUTF();
         requestClientPW();
         this.clientPW = in.readUTF();
-        System.out.println("ja moin moin");
         if (registerOrLogin.equals("/login")) login(clientName, clientPW);
         else if(registerOrLogin.equals("/register")) register(clientName, clientPW);
     }
@@ -94,7 +94,7 @@ public class ClientThread extends Thread {
         }
         if (clientPW.equals(server.getUsers().get(clientName).getPassword())) {
             server.sendToAll(clientName + " connected", this);
-            sendMessage("/connected");
+            sendMessage("/loggedIn");
             server.getUsers().get(clientName).setOnline(true);
             this.isLoggedIn = true;
             System.out.println("c");

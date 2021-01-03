@@ -17,7 +17,7 @@ public class Client extends Application  {
     private ClientReader clientReader;
     private ClientController controller;
     private DataOutputStream out;
-    private boolean isConnected = false;
+    private boolean loggedIn = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -71,11 +71,11 @@ public class Client extends Application  {
         this.out = out;
     }
 
-    public boolean isConnected() {
-        return isConnected;
+    public boolean isLoggedIn() {
+        return loggedIn;
     }
 
-    public void setConnected(boolean connected) {
-        isConnected = connected;
+    public void setLoggedIn(boolean b) {
+        loggedIn = b;
     }
 }
