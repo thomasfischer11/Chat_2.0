@@ -39,15 +39,11 @@ public class ClientThread extends Thread {
             while (isRunning) {
                 clientMessage = in.readUTF();
                 if (clientMessage.equals("/logout")) {
-                    sendMessage("Logged out");
-                    server.sendToAll(clientName + " disconnected", this);
-                    server.getUsers().get(clientName).setOnline(false);
-                    server.getClientThreads().remove(this);
+                    logout();
                     break;
                 }
                 clientMessage = clientName + ": " + clientMessage;
-                server.sendToAll(clientMessage, this);
-                sendMessage(clientMessage);
+                server.sendToAll(clientMessage);
             }
         } catch (IOException e) {
         } // Fehler bei Ein- und Ausgabe
@@ -59,8 +55,14 @@ public class ClientThread extends Thread {
         }
     }
 
+    public void logout() throws IOException {
+        sendMessage("Logged out");
+        server.getUsers().get(clientName).setOnline(false);
+        server.getClientThreads().remove(this);
+        server.sendToAll(clientName + " disconnected");
+    }
+
     private void registerLogin() throws IOException {
-        System.out.println("registerlogin...");
         String registerOrLogin = in.readUTF();
         requestClientName();
         this.clientName = in.readUTF();
@@ -93,7 +95,7 @@ public class ClientThread extends Thread {
             return;
         }
         if (clientPW.equals(server.getUsers().get(clientName).getPassword())) {
-            server.sendToAll(clientName + " connected", this);
+            server.sendToAllExcept(clientName + " connected", this);
             sendMessage("/loggedIn");
             server.getUsers().get(clientName).setOnline(true);
             this.isLoggedIn = true;
@@ -118,7 +120,7 @@ public class ClientThread extends Thread {
         else {
             server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size()));
             server.getUsers().get(clientName).setOnline(true);
-            server.sendToAll(clientName + " connected", this);
+            server.sendToAllExcept(clientName + " connected", this);
             sendMessage("/registered");
             this.isLoggedIn = true;
             System.out.println("f");
@@ -148,5 +150,9 @@ public class ClientThread extends Thread {
 
     public void setRunning(boolean running) {
         isRunning = running;
+    }
+
+    public String getClientName() {
+        return clientName;
     }
 }

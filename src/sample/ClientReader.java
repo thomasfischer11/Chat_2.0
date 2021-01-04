@@ -41,6 +41,17 @@ public class ClientReader extends Thread {
             if (client.isLoggedIn()) client.showMessage(messageReceived);
         }
     };
+    Runnable logOut = new Runnable() {
+        @Override
+        public void run() { if (client.isLoggedIn()) {
+            try {
+                client.getController().logOut();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        }
+    };
 
     ClientReader(Socket server , Client client){
         this.server = server;
@@ -73,11 +84,13 @@ public class ClientReader extends Thread {
                     //client.showMessage(messageReceived); //Platform.runLater(messageUpdater);
                 }
             }
-            while (!messageReceived.equals("Disconnected") && !messageReceived.equals("Disconnected: The Server was stopped."));
+            while (!messageReceived.equals("Logged out") && !messageReceived.equals("Disconnected: The Server was stopped."));
             // Streams schließen
+            Platform.runLater(logOut);
+            sleep(10);
             in.close();
             client.getOut().close();
 
-        } catch (IOException ignored) { }
+        } catch (IOException | InterruptedException ignored) { }
     }
 }

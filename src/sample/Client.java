@@ -34,13 +34,13 @@ public class Client extends Application  {
     public static void main(String[] args) { launch(args); }
 
 
-
     public ClientController getController() {
         return controller;
     }
 
     public void sendMessage(String message) throws IOException {
         out.writeUTF(message);
+        if (isLoggedIn()) controller.getTxtFieldClient().setText("");
     }
 
     public void showMessage(String message){

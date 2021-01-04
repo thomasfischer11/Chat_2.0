@@ -61,19 +61,15 @@ public class ClientController {
                         return;
                     }
                     for (String subString : splitEqually(txt, 50)) {
-                        sendMessage(subString);
+                        client.sendMessage(subString);
                     }
                     return;
                 }
-                sendMessage(txt);
+                client.sendMessage(txt);
             }
         }
     }
 
-    private void sendMessage(String message) throws IOException {
-        client.sendMessage(message);
-        if (client.isLoggedIn()) txtFieldClient.setText("");
-    }
     
     public ArrayList<String> splitEqually(String text, int size) {
         ArrayList<String> ret = new ArrayList<String>((text.length() + size - 1) / size);
@@ -98,8 +94,8 @@ public class ClientController {
                 labelError.setVisible(true);
                 return;
             }
-            if (register) sendMessage("/register");
-            else sendMessage("/login");
+            if (register) client.sendMessage("/register");
+            else client.sendMessage("/login");
         } else {
             logOut();
             return;
@@ -134,11 +130,11 @@ public class ClientController {
     }
 
     public void getName() throws IOException {
-        sendMessage(txtFieldUsername.getText());
+        client.sendMessage(txtFieldUsername.getText());
     }
 
     public void getPW() throws IOException {
-        sendMessage(pwField.getText());
+        client.sendMessage(pwField.getText());
     }
 
     public void printError(String ErrorMessage) {
@@ -151,6 +147,7 @@ public class ClientController {
         buttonConnect.setText("Log out");
         txtFieldClient.setEditable(true);
         labelLoginRegister.setVisible(false);
+        labelLoginRegister.setText("Login");
         buttonChangeLoginRegister.setVisible(false);;
         labelChangeLoginRegister.setVisible(false);
         txtFieldUsername.setVisible(false);
@@ -161,8 +158,8 @@ public class ClientController {
     }
 
     public void logOut() throws IOException {
-        client.setLoggedIn(false);
         client.sendMessage("/logout");
+        client.setLoggedIn(false);
         buttonConnect.setText("Log in");
         txtFieldClient.setEditable(false);
         labelLoginRegister.setVisible(true);

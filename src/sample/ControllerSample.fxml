@@ -22,7 +22,7 @@
          <children>
             <TextField fx:id="txtFieldClient" editable="false" layoutX="10.0" layoutY="560.0" onKeyPressed="#sendMessageOnEnter" prefHeight="25.0" prefWidth="420.0" />
             <TextArea fx:id="txtAreaClient" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="520.0" prefWidth="420.0" />
-            <Button fx:id="buttonConnect" layoutX="565.0" layoutY="560.0" mnemonicParsing="false" onMouseClicked="#onConnectClicked" prefHeight="25.0" prefWidth="100.0" text="Connect" />
+            <Button fx:id="buttonConnect" layoutX="565.0" layoutY="560.0" mnemonicParsing="false" onMouseClicked="#onConnectClicked" prefHeight="25.0" prefWidth="100.0" text="Connect" textAlignment="CENTER" />
             <PasswordField fx:id="pwField" layoutX="515.0" layoutY="420.0" prefHeight="25.0" prefWidth="200.0" promptText="Password" />
             <TextField fx:id="txtFieldUsername" layoutX="515.0" layoutY="370.0" prefHeight="25.0" prefWidth="200.0" promptText="Username" />
             <Label fx:id="labelLoginRegister" layoutX="600.0" layoutY="330.0" text="Login" underline="true" />
