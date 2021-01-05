@@ -19,9 +19,11 @@ public class Server extends Application {
     private ServerSocket serverSocket;
     private ClientAcceptorThread clientAcceptorThread;
     private boolean isOnline = false;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServerInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         controller = fxmlLoader.<ServerController>getController();
@@ -99,6 +101,14 @@ public class Server extends Application {
         return users;
     }
 
+    public HashMap<String, HashSet<ClientThread>> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(HashMap<String, HashSet<ClientThread>> rooms) {
+        this.rooms = rooms;
+    }
+
     public ClientAcceptorThread getClientAcceptorThread() {
         return clientAcceptorThread;
     }
@@ -121,5 +131,9 @@ public class Server extends Application {
 
     public void setServerSocket(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }
