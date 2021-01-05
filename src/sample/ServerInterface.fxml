@@ -23,9 +23,9 @@
             <TextField fx:id="txtFieldServer" layoutX="10.0" layoutY="560.0" onKeyPressed="#sendMessageOnEnter" prefHeight="25.0" prefWidth="420.0" />
             <Button fx:id="buttonStartStop" layoutX="565.0" layoutY="560.0" mnemonicParsing="false" onMouseClicked="#onStartStopClicked" text="Stop Server" textAlignment="CENTER" />
             <Label layoutX="603.0" layoutY="26.0" />
-            <Button fx:id="buttonOpenCreateRoomWindow" layoutX="455.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#onButtonOpenCreateRoomWindow" prefHeight="25.0" prefWidth="100.0" text="create room" />
-            <Button layoutX="590.0" layoutY="22.0" mnemonicParsing="false" text="edit room" />
-            <Button layoutX="687.0" layoutY="22.0" mnemonicParsing="false" text="delete room" />
+            <Button fx:id="buttonOpenCreateRoomWindow" layoutX="455.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#openCreateRoomWindow" prefHeight="25.0" prefWidth="100.0" text="create room" />
+            <Button fx:id="buttonOpenEditRoomWindow" layoutX="590.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#openEditRoomWindow" text="edit room" />
+            <Button fx:id="buttonOpenDeleteRoomWindow" layoutX="687.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#openDeleteRoomWindow" text="delete room" />
 
       </children>
     </Pane>

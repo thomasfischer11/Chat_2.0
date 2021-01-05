@@ -109,7 +109,7 @@ public class ServerController {
     }
 
     @FXML
-    private void onButtonOpenCreateRoomWindow() throws IOException {
+    private void openCreateRoomWindow() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createRoomInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
@@ -131,7 +131,55 @@ public class ServerController {
         newWindow.setY(server.getPrimaryStage().getY() + 100);
 
         newWindow.show();
+    }
 
+    @FXML
+    private void openEditRoomWindow() throws IOException {
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editRoomInterface.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        Scene secondScene = new Scene(root);
+
+        // New window (Stage)
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Edit Room");
+        newWindow.setScene(secondScene);
+
+        // Specifies the modality for new window.
+        newWindow.initModality(Modality.WINDOW_MODAL);
+
+        // Specifies the owner Window (parent) for new window
+        newWindow.initOwner(server.getPrimaryStage());
+
+        // Set position of second window, related to primary window.
+        newWindow.setX(server.getPrimaryStage().getX() + 200);
+        newWindow.setY(server.getPrimaryStage().getY() + 100);
+
+        newWindow.show();
+    }
+
+    @FXML
+    private void openDeleteRoomWindow() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deleteRoomInterface.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        Scene secondScene = new Scene(root);
+
+        // New window (Stage)
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Delete Room");
+        newWindow.setScene(secondScene);
+
+        // Specifies the modality for new window.
+        newWindow.initModality(Modality.WINDOW_MODAL);
+
+        // Specifies the owner Window (parent) for new window
+        newWindow.initOwner(server.getPrimaryStage());
+
+        // Set position of second window, related to primary window.
+        newWindow.setX(server.getPrimaryStage().getX() + 200);
+        newWindow.setY(server.getPrimaryStage().getY() + 100);
+
+        newWindow.show();
     }
 }
