@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +31,22 @@ public class ServerController {
     public Button buttonCreateRoom;
     @FXML
     TextArea textAreaRoomCreated;
+    @FXML
+    ChoiceBox<String> choiceBoxRoomsInDelete;
+    @FXML
+    Button buttonDeleteRoom;
+    @FXML
+    ChoiceBox<String> choiceBoxRoomsInEdit;
+    @FXML
+    Button buttonRename;
+    @FXML
+    TextField textFieldNewName;
+    @FXML
+    TextArea textAreaSuccessDeleteRoom;
+    @FXML
+    TextArea textAreaSuccessEditRoom;
+
+
 
     public void setServer(Server server) throws IOException {
         this.server = server;
@@ -100,14 +113,7 @@ public class ServerController {
         return txtAreaServer;
     }
 
-    @FXML
-    private void createRoom() throws IOException {
-        if(textFieldRoomName.getText() != null){
-            String roomName = textFieldRoomName.getText();
-            server.getRooms().put(roomName, new HashSet<>());
-            textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
-        }
-    }
+
 
     @FXML
     private void openCreateRoomWindow() throws IOException {
@@ -136,6 +142,15 @@ public class ServerController {
     }
 
     @FXML
+    private void createRoom() throws IOException {
+        if(textFieldRoomName.getText() != null){
+            String roomName = textFieldRoomName.getText();
+            server.getRooms().put(roomName, new HashSet<>());
+            textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
+        }
+    }
+
+    @FXML
     private void openEditRoomWindow() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editRoomInterface.fxml"));
@@ -161,6 +176,7 @@ public class ServerController {
         newWindow.show();
     }
 
+
     @FXML
     private void openDeleteRoomWindow() throws IOException {
 
@@ -185,5 +201,37 @@ public class ServerController {
         newWindow.setY(server.getPrimaryStage().getY() + 100);
 
         newWindow.show();
+    }
+
+    @FXML
+    private void setChoiceBoxRoomsInDelete(){
+        for(String s: server.getRooms().keySet()){
+            if(!choiceBoxRoomsInDelete.getItems().contains(s)) {
+                choiceBoxRoomsInDelete.getItems().add(s);
+            }
+        }
+    }
+
+    @FXML
+    private void setChoiceBoxRoomsInEdit(){
+        for(String s: server.getRooms().keySet()){
+            if(!choiceBoxRoomsInEdit.getItems().contains(s)) {
+                choiceBoxRoomsInEdit.getItems().add(s);
+            }
+        }
+    }
+
+    @FXML
+    private void deleteRoom(){
+        server.getRooms().remove(choiceBoxRoomsInDelete.getValue());
+        textAreaSuccessDeleteRoom.setText("Success!");
+    }
+
+    @FXML
+    private void editRoom(){
+        HashSet<ClientThread> temp = server.getRooms().get(choiceBoxRoomsInEdit.getValue());
+        server.getRooms().remove(choiceBoxRoomsInEdit.getValue());
+        server.getRooms().put(textFieldNewName.getText(), temp);
+        textAreaSuccessEditRoom.setText("Success!");
     }
 }

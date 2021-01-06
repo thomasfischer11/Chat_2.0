@@ -2,11 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="169.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ServerController">
     <children>
-        <Button fx:id="buttonDeleteRoom" layoutX="435.0" layoutY="72.0" mnemonicParsing="false" onMouseClicked="#createRoom" text="delete room" />
-      <ChoiceBox fx:id="choiceBoxRoomsInDelete" layoutX="23.0" layoutY="72.0" prefHeight="25.0" prefWidth="392.0" />
+        <Button fx:id="buttonDeleteRoom" layoutX="435.0" layoutY="72.0" mnemonicParsing="false" onMouseClicked="#deleteRoom" text="delete room" />
+      <ChoiceBox fx:id="choiceBoxRoomsInDelete" layoutX="23.0" layoutY="72.0" onMouseEntered="#setChoiceBoxRoomsInDelete" prefHeight="25.0" prefWidth="392.0" />
+      <TextArea fx:id="textAreaSuccessDeleteRoom" layoutX="208.0" layoutY="118.0" prefHeight="14.0" prefWidth="122.0" />
     </children>
 </AnchorPane>

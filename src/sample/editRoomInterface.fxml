@@ -2,13 +2,15 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="169.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ServerController">
    <children>
-      <ChoiceBox fx:id="choiceBoxRoomsInEdit" layoutX="85.0" layoutY="23.0" prefHeight="25.0" prefWidth="368.0" />
-      <Button fx:id="buttonRename" layoutX="241.0" layoutY="119.0" mnemonicParsing="false" text="rename" />
+      <ChoiceBox fx:id="choiceBoxRoomsInEdit" layoutX="85.0" layoutY="23.0" onMouseEntered="#setChoiceBoxRoomsInEdit" prefHeight="25.0" prefWidth="368.0" />
+      <Button fx:id="buttonRename" layoutX="241.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#editRoom" text="rename" />
       <TextField fx:id="textFieldNewName" layoutX="130.0" layoutY="72.0" prefHeight="25.0" prefWidth="278.0" promptText="new name" />
+      <TextArea fx:id="textAreaSuccessEditRoom" layoutX="331.0" layoutY="113.0" prefHeight="14.0" prefWidth="122.0" />
    </children>
 </AnchorPane>
