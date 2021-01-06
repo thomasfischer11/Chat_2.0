@@ -32,10 +32,11 @@ public class ServerController {
     private TextField textFieldRoomName;
     @FXML
     public Button buttonCreateRoom;
+    @FXML
+    TextArea textAreaRoomCreated;
 
     public void setServer(Server server) throws IOException {
         this.server = server;
-        server.setServerOnline();
     }
 
     @FXML
@@ -104,7 +105,7 @@ public class ServerController {
         if(textFieldRoomName.getText() != null){
             String roomName = textFieldRoomName.getText();
             server.getRooms().put(roomName, new HashSet<>());
-            showMessage("New room " + textFieldRoomName.getText() + " has been created.");
+            textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
         }
     }
 
@@ -114,6 +115,7 @@ public class ServerController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createRoomInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         Scene secondScene = new Scene(root);
+        fxmlLoader.<ServerController>getController().setServer(server);
 
         // New window (Stage)
         Stage newWindow = new Stage();
@@ -139,6 +141,7 @@ public class ServerController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editRoomInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         Scene secondScene = new Scene(root);
+        fxmlLoader.<ServerController>getController().setServer(server);
 
         // New window (Stage)
         Stage newWindow = new Stage();
@@ -164,6 +167,7 @@ public class ServerController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deleteRoomInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         Scene secondScene = new Scene(root);
+        fxmlLoader.<ServerController>getController().setServer(server);
 
         // New window (Stage)
         Stage newWindow = new Stage();

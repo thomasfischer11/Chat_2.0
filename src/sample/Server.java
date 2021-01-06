@@ -28,6 +28,7 @@ public class Server extends Application {
         Parent root = (Parent)fxmlLoader.load();
         controller = fxmlLoader.<ServerController>getController();
         controller.setServer(this);
+        setServerOnline();
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Serverlog");
