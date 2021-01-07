@@ -33,6 +33,7 @@ public class Server extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Serverlog");
         primaryStage.show();
+
     }
 
     public static void main(String[] args) throws IOException { launch(args); }

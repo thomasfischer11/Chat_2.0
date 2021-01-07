@@ -118,7 +118,7 @@ public class ClientThread extends Thread {
             return;
         }
         else {
-            server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size()));
+            server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size(), null));
             server.getUsers().get(clientName).setOnline(true);
             server.sendToAllExcept(clientName + " connected", this);
             sendMessage("/registered");

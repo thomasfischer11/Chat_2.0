@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,6 +20,7 @@ import java.util.HashSet;
 public class ServerController {
 
     private Server server;
+
     @FXML
     private TextField txtFieldServer;
     @FXML
@@ -45,11 +47,20 @@ public class ServerController {
     TextArea textAreaSuccessDeleteRoom;
     @FXML
     TextArea textAreaSuccessEditRoom;
+    @FXML
+    VBox vBoxRoomsUsers;
+    @FXML
+    Button buttonOpenCreateRoomWindow;
+    @FXML
+    Button buttonOpenEditRoomWindow;
+    @FXML
+    Button buttonOpenDeleteRoomWindow;
 
 
 
     public void setServer(Server server) throws IOException {
         this.server = server;
+
     }
 
     @FXML
@@ -141,14 +152,7 @@ public class ServerController {
         newWindow.show();
     }
 
-    @FXML
-    private void createRoom() throws IOException {
-        if(textFieldRoomName.getText() != null){
-            String roomName = textFieldRoomName.getText();
-            server.getRooms().put(roomName, new HashSet<>());
-            textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
-        }
-    }
+
 
     @FXML
     private void openEditRoomWindow() throws IOException {
@@ -222,6 +226,15 @@ public class ServerController {
     }
 
     @FXML
+    private void createRoom() throws IOException {
+        if(!textFieldRoomName.getText().equals("")){
+            String roomName = textFieldRoomName.getText();
+            server.getRooms().put(roomName, new HashSet<>());
+            textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
+        }
+    }
+
+    @FXML
     private void deleteRoom(){
         server.getRooms().remove(choiceBoxRoomsInDelete.getValue());
         textAreaSuccessDeleteRoom.setText("Success!");
@@ -230,8 +243,35 @@ public class ServerController {
     @FXML
     private void editRoom(){
         HashSet<ClientThread> temp = server.getRooms().get(choiceBoxRoomsInEdit.getValue());
-        server.getRooms().remove(choiceBoxRoomsInEdit.getValue());
-        server.getRooms().put(textFieldNewName.getText(), temp);
-        textAreaSuccessEditRoom.setText("Success!");
+        if(!textFieldNewName.getText().equals("")) {
+            server.getRooms().remove(choiceBoxRoomsInEdit.getValue());
+            server.getRooms().put(textFieldNewName.getText(), temp);
+            textAreaSuccessEditRoom.setText("Success!");
+        }
     }
+
+    @FXML
+    public void updateVBoxRooms(){
+        vBoxRoomsUsers.getChildren().clear();
+        for(String s: server.getRooms().keySet()){
+            Button button = new Button(s);
+            vBoxRoomsUsers.getChildren().add(button);
+        }
+        buttonOpenEditRoomWindow.setVisible(true);
+        buttonOpenDeleteRoomWindow.setVisible(true);
+        buttonOpenCreateRoomWindow.setVisible(true);
+    }
+
+    @FXML
+    private void updateVBoxUsers(){
+        vBoxRoomsUsers.getChildren().clear();
+        for(String s: server.getUsers().keySet()){
+            Button button = new Button(s);
+            vBoxRoomsUsers.getChildren().add(button);
+        }
+        buttonOpenEditRoomWindow.setVisible(false);
+        buttonOpenDeleteRoomWindow.setVisible(false);
+        buttonOpenCreateRoomWindow.setVisible(false);
+    }
+
 }

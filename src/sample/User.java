@@ -5,12 +5,14 @@ public class User {
     private String password;
     private boolean online;
     private int usernumber;
+    private String room;
 
-    public User(String name, String password, int usernumber) {
+    public User(String name, String password, int usernumber, String room) {
         this.name = name;
         this.password = password;
         this.online = false;
         this.usernumber = usernumber;
+        this.room = room;
     }
 
     public String getName() {
@@ -45,4 +47,11 @@ public class User {
         this.usernumber = usernumber;
     }
 
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
 }

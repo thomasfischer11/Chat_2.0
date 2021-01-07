@@ -6,6 +6,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -36,6 +37,8 @@ public class ClientController {
     private PasswordField pwField2;
     @FXML
     private Label labelError;
+    @FXML
+    VBox vBoxRooms;
 
     private boolean register = false;
     private Client client;
@@ -169,4 +172,13 @@ public class ClientController {
         pwField.setVisible(true);
         labelError.setVisible(true);
     }
+
+    /*@FXML
+    public void updateVBoxRooms(){
+        vBoxRooms.getChildren().clear();
+        for(String s: ){
+            Button button = new Button(s);
+            vBoxRooms.getChildren().add(button);
+        }
+    }*/
 }
