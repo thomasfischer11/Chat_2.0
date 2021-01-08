@@ -42,6 +42,25 @@ public class ClientThread extends Thread {
                     logout();
                     break;
                 }
+                if (clientMessage.equals("/updateRooms")) {
+                    StringBuilder roomNames = new StringBuilder();
+                    roomNames.append("/roomNames+");
+                    for(String s: server.getRooms().keySet()){
+                        roomNames.append(s);
+                        roomNames.append("+");
+                    }
+                    sendMessage(roomNames.toString());
+                }
+                if(clientMessage.startsWith("/joinRoom+")){
+                    StringBuilder roomName = new StringBuilder();
+                    roomName.append(clientMessage);
+                    while(roomName.charAt(0) != '+'){
+                        roomName.deleteCharAt(0);
+                    }
+                    roomName.deleteCharAt(0);
+                    server.getRooms().get(roomName.toString()).add(this);
+                    server.getUsers().get(clientName).setRoom(roomName.toString());
+                }
                 clientMessage = clientName + ": " + clientMessage;
                 server.sendToAll(clientMessage);
             }
@@ -118,7 +137,7 @@ public class ClientThread extends Thread {
             return;
         }
         else {
-            server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size(), null));
+            server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size(), "main-lobby"));
             server.getUsers().get(clientName).setOnline(true);
             server.sendToAllExcept(clientName + " connected", this);
             sendMessage("/registered");

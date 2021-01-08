@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
@@ -10,8 +11,11 @@ import javafx.scene.layout.VBox;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class ClientController {
@@ -42,14 +46,62 @@ public class ClientController {
 
     private boolean register = false;
     private Client client;
+    private String roomNames = "";
 
 
-    public void setClient(Client client) throws IOException {
+    public void setClient(Client client) throws IOException, ClassNotFoundException {
         this.client = client;
         this.client.setServer(new Socket("localhost", 1312));
         this.client.setClientReader(new ClientReader(this.client.getServer(), this.client));
         this.client.getClientReader().start();
         this.client.setOut(new DataOutputStream(this.client.getServer().getOutputStream()));
+    }
+
+    @FXML
+    private void updateRooms() throws IOException, InterruptedException {
+        client.sendMessage("/updateRooms");
+        vBoxRooms.getChildren().clear();
+        //wait(30);
+        StringBuilder roomNamesTemp = new StringBuilder();
+        roomNamesTemp.append(roomNames);
+        if(!roomNamesTemp.toString().equals("")) {
+            while(roomNamesTemp.charAt(0) != '+') {
+                roomNamesTemp.deleteCharAt(0);
+            }
+            roomNamesTemp.deleteCharAt(0);
+
+            while(roomNamesTemp.length() != 0){
+                StringBuilder s = new StringBuilder();
+                while(roomNamesTemp.charAt(0) != '+'){
+                    s.append(roomNamesTemp.charAt(0));
+                    roomNamesTemp.deleteCharAt(0);
+                }
+                roomNamesTemp.deleteCharAt(0);
+                Button button = new Button(s.toString());
+                button.setOnMouseClicked(e -> {
+                    for(Node n : vBoxRooms.getChildren()) {
+                        n.setStyle("-fx-text-fill: black;");
+                    }
+                    button.setStyle(("-fx-text-fill: blue;"));
+                });
+                vBoxRooms.getChildren().add(button);
+            }
+        }
+    }
+
+    @FXML
+    private void joinRoom() throws IOException {
+        Button a = null;
+        for(Node n : vBoxRooms.getChildren()) {
+            if(n.getStyle().equals("-fx-text-fill: blue;")){
+                a = (Button)n;
+            }
+        }
+        assert a != null;{
+            String roomToJoin = a.getText();
+            client.sendMessage("/joinRoom+" + roomToJoin);
+        }
+
     }
 
     @FXML
@@ -181,4 +233,8 @@ public class ClientController {
             vBoxRooms.getChildren().add(button);
         }
     }*/
+
+    public void setRoomNames(String roomNames) {
+        this.roomNames = roomNames;
+    }
 }

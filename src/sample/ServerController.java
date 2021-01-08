@@ -254,7 +254,16 @@ public class ServerController {
     public void updateVBoxRooms(){
         vBoxRoomsUsers.getChildren().clear();
         for(String s: server.getRooms().keySet()){
-            Button button = new Button(s);
+            StringBuilder room = new StringBuilder();
+            room.append(s);
+            room.append(" (");
+            for(User a: server.getUsers().values()){
+                if(a.getRoom().equals(s)){
+                    room.append(a.getName()).append(" ");
+                }
+            }
+            room.append(")");
+            Button button = new Button(room.toString());
             vBoxRoomsUsers.getChildren().add(button);
         }
         buttonOpenEditRoomWindow.setVisible(true);

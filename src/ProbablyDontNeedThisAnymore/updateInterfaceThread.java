@@ -1,8 +1,10 @@
-package sample;
+package ProbablyDontNeedThisAnymore;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import sample.Server;
+import sample.ServerController;
 
 public class updateInterfaceThread {
     public boolean isRunning;

@@ -38,10 +38,11 @@ public class Server extends Application {
 
     public static void main(String[] args) throws IOException { launch(args); }
 
-    public void runServer () throws IOException {
-        serverSocket = new ServerSocket(1312);
-        clientAcceptorThread = new ClientAcceptorThread(this, serverSocket);
+    public void setServerOnline() throws IOException {
+        this.serverSocket = new ServerSocket(1312);
+        this.clientAcceptorThread = new ClientAcceptorThread(this, serverSocket);
         clientAcceptorThread.start();
+        isOnline = true;
     }
 
     void sendToAll(String message) throws IOException {
@@ -65,13 +66,6 @@ public class Server extends Application {
     }
 
 
-
-    public void setServerOnline() throws IOException {
-        this.serverSocket = new ServerSocket(1312);
-        this.clientAcceptorThread = new ClientAcceptorThread(this, serverSocket);
-        clientAcceptorThread.start();
-        isOnline = true;
-    }
 
     public void stopServer() throws IOException {
         showInServerApp("Server is stopped by command...");
@@ -139,3 +133,9 @@ public class Server extends Application {
         return primaryStage;
     }
 }
+
+/*public void runServer () throws IOException {
+        serverSocket = new ServerSocket(1312);
+        clientAcceptorThread = new ClientAcceptorThread(this, serverSocket);
+        clientAcceptorThread.start();
+    }*/

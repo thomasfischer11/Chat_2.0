@@ -34,6 +34,8 @@
             <Label fx:id="labelError" layoutX="515.0" layoutY="300.0" textFill="RED" visible="false" />
             <VBox fx:id="vBoxRooms" layoutX="468.0" layoutY="44.0" prefHeight="183.0" prefWidth="294.0" />
             <Label layoutX="468.0" layoutY="27.0" prefHeight="17.0" prefWidth="44.0" text="Rooms:" />
+            <Button layoutX="465.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#updateRooms" text="update rooms" />
+            <Button layoutX="589.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#joinRoom" text="join room" />
          </children>
       </Pane>
    </children>
