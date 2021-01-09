@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.*;
 import java.util.*;
 
@@ -20,14 +21,20 @@ public class Server extends Application {
     private ClientAcceptorThread clientAcceptorThread;
     private boolean isOnline = false;
     private Stage primaryStage;
+    private final String serverLog = "serverlog.txt";
+    private final String userData = "userdata.txt";
+    private final String roomData = "roomdata.txt";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        readUserData();
         this.primaryStage = primaryStage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServerInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         controller = fxmlLoader.<ServerController>getController();
         controller.setServer(this);
+        controller.updateVBoxUsers();
+        controller.updateVBoxRooms();
         setServerOnline();
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
@@ -43,6 +50,28 @@ public class Server extends Application {
         this.clientAcceptorThread = new ClientAcceptorThread(this, serverSocket);
         clientAcceptorThread.start();
         isOnline = true;
+    }
+
+    private void readUserData() throws IOException, ClassNotFoundException {
+        FileInputStream fi = new FileInputStream(new File(userData));
+        ObjectInputStream oi = new ObjectInputStream(fi);
+        this.users = (HashMap<String, User>)oi.readObject();
+        oi.close();
+        fi.close();
+        fi = new FileInputStream(new File(roomData));
+        oi = new ObjectInputStream(fi);
+        StringBuilder roomNames = new StringBuilder((String)oi.readObject());
+        while(roomNames.length() != 0){
+            StringBuilder roomName = new StringBuilder();
+            while(roomNames.charAt(0) != '/'){
+                roomName.append(roomNames.charAt(0));
+                roomNames.deleteCharAt(0);
+            }
+            rooms.put(roomName.toString(), new HashSet<>());
+            roomNames.deleteCharAt(0);
+        }
+        oi.close();
+        fi.close();
     }
 
     void sendToAll(String message) throws IOException {
@@ -78,7 +107,29 @@ public class Server extends Application {
         } catch ( IOException e) {}
     }
 
+    public void writeInServerLog(String log) throws IOException {
+        BufferedWriter  myWriter = new BufferedWriter (new FileWriter(serverLog, true) ) ;
+        myWriter.write(log+ "\n");
+        myWriter.close();
+    }
 
+    public void saveUserData() throws IOException {
+        FileOutputStream f = new FileOutputStream(new File(userData), false);
+        ObjectOutputStream o = new ObjectOutputStream(f);
+        o.writeObject(users);
+        o.close();
+        f.close();
+        f = new FileOutputStream(new File(roomData), false);
+        o = new ObjectOutputStream(f);
+        StringBuilder s = new StringBuilder();
+        for(String roomName: rooms.keySet()){
+            s.append(roomName);
+            s.append("/");
+        }
+        o.writeObject(s.toString());
+        o.close();
+        f.close();
+    }
 
     public void stopServer() throws IOException {
         showInServerApp("Server is stopped by command...");
@@ -86,6 +137,8 @@ public class Server extends Application {
         clientAcceptorThread.setRunning(false);
         Socket server2 =  new Socket("localhost", 1312);
         server2.close();
+        //saving user data
+        saveUserData();
         // closing all clientThreads:
         for(ClientThread a : clientThreads){
             a.sendMessage("Disconnected: The Server was stopped.");

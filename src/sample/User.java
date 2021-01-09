@@ -1,6 +1,8 @@
 package sample;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String name;
     private String password;
     private boolean online;
@@ -53,5 +55,10 @@ public class User {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    @Override
+    public String toString() {
+        return "name:" + name + "\npassword: " + password + "\nonline: " + online + "usernumber: " + usernumber + "room: " + room;
     }
 }

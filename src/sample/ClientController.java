@@ -45,6 +45,13 @@ public class ClientController {
     VBox vBoxRooms;
     @FXML
     Label labelCurrentRoom;
+    @FXML
+    Button buttonUpdateRooms;
+    @FXML
+    Button buttonJoinRoom;
+    @FXML
+    Label labelRooms;
+
 
 
     private boolean register = false;
@@ -222,6 +229,11 @@ public class ClientController {
         pwField2.setVisible(false);
         labelError.setVisible(false);
         register = false;
+        labelCurrentRoom.setVisible(true);
+        vBoxRooms.setVisible(true);
+        buttonUpdateRooms.setVisible(true);
+        buttonJoinRoom.setVisible(true);
+        labelRooms.setVisible(true);
     }
 
     public void logOut() throws IOException {
@@ -235,16 +247,12 @@ public class ClientController {
         txtFieldUsername.setVisible(true);
         pwField.setVisible(true);
         labelError.setVisible(true);
+        labelCurrentRoom.setVisible(false);
+        vBoxRooms.setVisible(false);
+        buttonUpdateRooms.setVisible(false);
+        buttonJoinRoom.setVisible(false);
+        labelRooms.setVisible(false);
     }
-
-    /*@FXML
-    public void updateVBoxRooms(){
-        vBoxRooms.getChildren().clear();
-        for(String s: ){
-            Button button = new Button(s);
-            vBoxRooms.getChildren().add(button);
-        }
-    }*/
 
     public void setRoomNames(String roomNames) {
         this.roomNames = roomNames;

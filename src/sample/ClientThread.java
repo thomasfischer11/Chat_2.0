@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class ClientThread extends Thread {
+public class ClientThread extends Thread implements Serializable{
 
     private Socket client;
     private Server server;
@@ -20,6 +20,11 @@ public class ClientThread extends Thread {
         this.server = server;
         this.isRunning = true;
         this.isLoggedIn = false;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 
     public void run() { // Bearbeitung einer aufgebauten Verbindung

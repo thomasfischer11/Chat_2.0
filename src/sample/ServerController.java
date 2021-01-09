@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -55,6 +56,8 @@ public class ServerController {
     Button buttonOpenEditRoomWindow;
     @FXML
     Button buttonOpenDeleteRoomWindow;
+    @FXML
+    AnchorPane anchorPaneCreateRoom;
 
 
 
@@ -100,12 +103,17 @@ public class ServerController {
 
     private void showMessage(String s) throws IOException {
         if (s.startsWith("/")) executeCommand(s);
-        else server.sendToAll("[Server]: " + s);
+        else {
+            server.sendToAll("[Server]: " + s);
+            server.writeInServerLog("[Server]: " + s);
+        }
         if (server.isOnline()) txtFieldServer.setText("");
+
     }
 
     private void executeCommand(String command) throws IOException {
         if (command.equals("/stop")) {
+            server.writeInServerLog("Server stopped.");
             server.stopServer();
             return;
         }
@@ -115,8 +123,10 @@ public class ServerController {
                 if (aUser.getClientName().equals(name)) {
                     aUser.sendMessage("You were kicked from the Server");
                     aUser.logout();
+                    server.writeInServerLog("User "+aUser.getClientName()+ " was kicked from the server.");
                 }
             }
+
         }
     }
 
@@ -231,23 +241,34 @@ public class ServerController {
             String roomName = textFieldRoomName.getText();
             server.getRooms().put(roomName, new HashSet<>());
             textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
+            server.writeInServerLog("New room " + textFieldRoomName.getText() + " has been created.");
+            textFieldRoomName.clear();
+
         }
     }
 
     @FXML
-    private void deleteRoom(){
-        server.getRooms().remove(choiceBoxRoomsInDelete.getValue());
-        textAreaSuccessDeleteRoom.setText("Success!");
+    private void deleteRoom() throws IOException {
+        if(choiceBoxRoomsInDelete.getValue() != null){
+            server.getRooms().remove(choiceBoxRoomsInDelete.getValue());
+            textAreaSuccessDeleteRoom.setText("Success!");
+            server.writeInServerLog("Room "+ choiceBoxRoomsInDelete.getValue()+ " was deleted.");
+        }
     }
 
     @FXML
-    private void editRoom(){
-        HashSet<ClientThread> temp = server.getRooms().get(choiceBoxRoomsInEdit.getValue());
-        if(!textFieldNewName.getText().equals("")) {
-            server.getRooms().remove(choiceBoxRoomsInEdit.getValue());
-            server.getRooms().put(textFieldNewName.getText(), temp);
-            textAreaSuccessEditRoom.setText("Success!");
+    private void editRoom() throws IOException {
+        if(choiceBoxRoomsInEdit.getValue() != null){
+            HashSet<ClientThread> temp = server.getRooms().get(choiceBoxRoomsInEdit.getValue());
+            if(!textFieldNewName.getText().equals("")) {
+                server.getRooms().remove(choiceBoxRoomsInEdit.getValue());
+                server.getRooms().put(textFieldNewName.getText(), temp);
+                textAreaSuccessEditRoom.setText("Success!");
+                server.writeInServerLog("Room "+ choiceBoxRoomsInEdit.getValue()+ " was renamed to "+ textFieldNewName.getText()+".");
+                textFieldNewName.clear();
+            }
         }
+
     }
 
     @FXML
@@ -272,7 +293,7 @@ public class ServerController {
     }
 
     @FXML
-    private void updateVBoxUsers(){
+    public void updateVBoxUsers(){
         vBoxRoomsUsers.getChildren().clear();
         for(String s: server.getUsers().keySet()){
             Button button = new Button(s + "(" + server.getUsers().get(s).getRoom() + ")");
