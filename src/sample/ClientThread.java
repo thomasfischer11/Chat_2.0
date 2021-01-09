@@ -42,27 +42,43 @@ public class ClientThread extends Thread {
                     logout();
                     break;
                 }
-                if (clientMessage.equals("/updateRooms")) {
+                else if (clientMessage.equals("/updateRooms")) {
                     StringBuilder roomNames = new StringBuilder();
                     roomNames.append("/roomNames+");
                     for(String s: server.getRooms().keySet()){
                         roomNames.append(s);
+                        roomNames.append(" (");
+                        for(User a: server.getUsers().values()){
+                            if(a.getRoom().equals(s)){
+                                roomNames.append(a.getName()).append(", ");
+                            }
+                        }
+                        roomNames.append(")");
                         roomNames.append("+");
                     }
                     sendMessage(roomNames.toString());
                 }
-                if(clientMessage.startsWith("/joinRoom+")){
+                else if(clientMessage.startsWith("/joinRoom+")){
                     StringBuilder roomName = new StringBuilder();
                     roomName.append(clientMessage);
                     while(roomName.charAt(0) != '+'){
                         roomName.deleteCharAt(0);
                     }
                     roomName.deleteCharAt(0);
+                    //remove clientThread from old room
+                    String oldRoom = server.getUsers().get(clientName).getRoom();
+                    if(!oldRoom.equals("")) {
+                        server.getRooms().get(oldRoom).remove(this);
+                    }
+                    //put clientThread into new room
                     server.getRooms().get(roomName.toString()).add(this);
+                    //change room-name in user-class
                     server.getUsers().get(clientName).setRoom(roomName.toString());
                 }
-                clientMessage = clientName + ": " + clientMessage;
-                server.sendToAll(clientMessage);
+                else{
+                    clientMessage = clientName + ": " + clientMessage;
+                    server.sendToRoom(clientMessage, clientName);
+                }
             }
         } catch (IOException e) {
         } // Fehler bei Ein- und Ausgabe
@@ -137,7 +153,7 @@ public class ClientThread extends Thread {
             return;
         }
         else {
-            server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size(), "main-lobby"));
+            server.getUsers().put(clientName, new User(clientName, clientPW, server.getClientThreads().size(), ""));
             server.getUsers().get(clientName).setOnline(true);
             server.sendToAllExcept(clientName + " connected", this);
             sendMessage("/registered");

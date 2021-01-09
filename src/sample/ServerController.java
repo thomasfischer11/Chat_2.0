@@ -259,7 +259,7 @@ public class ServerController {
             room.append(" (");
             for(User a: server.getUsers().values()){
                 if(a.getRoom().equals(s)){
-                    room.append(a.getName()).append(" ");
+                    room.append(a.getName()).append(", ");
                 }
             }
             room.append(")");
@@ -275,7 +275,7 @@ public class ServerController {
     private void updateVBoxUsers(){
         vBoxRoomsUsers.getChildren().clear();
         for(String s: server.getUsers().keySet()){
-            Button button = new Button(s);
+            Button button = new Button(s + "(" + server.getUsers().get(s).getRoom() + ")");
             vBoxRoomsUsers.getChildren().add(button);
         }
         buttonOpenEditRoomWindow.setVisible(false);

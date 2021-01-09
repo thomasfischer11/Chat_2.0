@@ -54,6 +54,19 @@ public class Server extends Application {
         } catch ( IOException e) {}
     }
 
+    void sendToRoom(String message, String clientName) throws IOException {
+        String room = users.get(clientName).getRoom();
+        if(!room.equals("")){
+            showInServerApp("(" + room + ") " + message);
+            try {
+                for (ClientThread aUser : rooms.get(room)) {
+                    aUser.sendMessage(message);
+                }
+            } catch ( IOException e) {}
+        }
+
+    }
+
     void sendToAllExcept(String message, ClientThread excludeUser) throws IOException {
         showInServerApp(message);
         try {

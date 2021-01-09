@@ -36,6 +36,7 @@
             <Label layoutX="468.0" layoutY="27.0" prefHeight="17.0" prefWidth="44.0" text="Rooms:" />
             <Button layoutX="465.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#updateRooms" text="update rooms" />
             <Button layoutX="589.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#joinRoom" text="join room" />
+            <Label fx:id="labelCurrentRoom" layoutX="589.0" layoutY="27.0" prefHeight="17.0" prefWidth="172.0" text="Current Room: none" />
          </children>
       </Pane>
    </children>

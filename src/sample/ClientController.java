@@ -43,10 +43,14 @@ public class ClientController {
     private Label labelError;
     @FXML
     VBox vBoxRooms;
+    @FXML
+    Label labelCurrentRoom;
+
 
     private boolean register = false;
     private Client client;
     private String roomNames = "";
+    private String room = "";
 
 
     public void setClient(Client client) throws IOException, ClassNotFoundException {
@@ -55,6 +59,7 @@ public class ClientController {
         this.client.setClientReader(new ClientReader(this.client.getServer(), this.client));
         this.client.getClientReader().start();
         this.client.setOut(new DataOutputStream(this.client.getServer().getOutputStream()));
+
     }
 
     @FXML
@@ -90,18 +95,25 @@ public class ClientController {
     }
 
     @FXML
-    private void joinRoom() throws IOException {
+    private void joinRoom() throws IOException, InterruptedException {
         Button a = null;
         for(Node n : vBoxRooms.getChildren()) {
             if(n.getStyle().equals("-fx-text-fill: blue;")){
                 a = (Button)n;
             }
         }
-        assert a != null;{
-            String roomToJoin = a.getText();
-            client.sendMessage("/joinRoom+" + roomToJoin);
+        if (a != null){
+            StringBuilder roomToJoin = new StringBuilder(a.getText());
+            int i = 0;
+            while(roomToJoin.charAt(i) != '('){
+                i++;
+            }
+            roomToJoin.delete(i-1, roomToJoin.length());
+            client.sendMessage("/joinRoom+" + roomToJoin.toString());
+            this.room = roomToJoin.toString();
+            labelCurrentRoom.setText("Current room: "+ roomToJoin.toString());
         }
-
+        updateRooms();
     }
 
     @FXML
