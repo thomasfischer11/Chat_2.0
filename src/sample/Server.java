@@ -40,7 +40,6 @@ public class Server extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Serverlog");
         primaryStage.show();
-
     }
 
     public static void main(String[] args) throws IOException { launch(args); }
@@ -111,6 +110,7 @@ public class Server extends Application {
         BufferedWriter  myWriter = new BufferedWriter (new FileWriter(serverLog, true) ) ;
         myWriter.write(log+ "\n");
         myWriter.close();
+        controller.getTxtAreaServer().appendText(log+"\n");
     }
 
     public void saveUserData() throws IOException {

@@ -63,7 +63,6 @@ public class ServerController {
 
     public void setServer(Server server) throws IOException {
         this.server = server;
-
     }
 
     @FXML
@@ -243,6 +242,7 @@ public class ServerController {
             textAreaRoomCreated.setText("New room " + textFieldRoomName.getText() + " has been created.");
             server.writeInServerLog("New room " + textFieldRoomName.getText() + " has been created.");
             textFieldRoomName.clear();
+            server.getController().updateVBoxRooms();
 
         }
     }
@@ -253,6 +253,7 @@ public class ServerController {
             server.getRooms().remove(choiceBoxRoomsInDelete.getValue());
             textAreaSuccessDeleteRoom.setText("Success!");
             server.writeInServerLog("Room "+ choiceBoxRoomsInDelete.getValue()+ " was deleted.");
+            server.getController().updateVBoxRooms();
         }
     }
 
@@ -266,6 +267,7 @@ public class ServerController {
                 textAreaSuccessEditRoom.setText("Success!");
                 server.writeInServerLog("Room "+ choiceBoxRoomsInEdit.getValue()+ " was renamed to "+ textFieldNewName.getText()+".");
                 textFieldNewName.clear();
+                server.getController().updateVBoxRooms();
             }
         }
 
@@ -304,4 +306,7 @@ public class ServerController {
         buttonOpenCreateRoomWindow.setVisible(false);
     }
 
+    public TextField getTxtFieldServer() {
+        return txtFieldServer;
+    }
 }

@@ -100,6 +100,7 @@ public class ClientThread extends Thread implements Serializable{
         server.getUsers().get(clientName).setOnline(false);
         server.getClientThreads().remove(this);
         server.sendToAll(clientName + " disconnected");
+        server.writeInServerLog("User "+ clientName + " logged out.");
     }
 
     private void registerLogin() throws IOException {
@@ -140,6 +141,7 @@ public class ClientThread extends Thread implements Serializable{
             server.getUsers().get(clientName).setOnline(true);
             this.isLoggedIn = true;
             System.out.println("c");
+            server.writeInServerLog("User "+ clientName + " logged in.");
         }
         else {
             sendMessage("/errWrongPW");
@@ -164,6 +166,7 @@ public class ClientThread extends Thread implements Serializable{
             sendMessage("/registered");
             this.isLoggedIn = true;
             System.out.println("f");
+            server.writeInServerLog("New User "+ clientName + " was registered.");
         }
     }
 
