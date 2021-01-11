@@ -35,3 +35,23 @@ Room 123 was deleted.
 New room 123 has been created.
 New User 123 was registered.
 User 123 logged out.
+New User 123 was registered.
+New room 1234 has been created.
+New User 123 was registered.
+New room 1234 has been created.
+New User 123 was registered.
+New room 1234 has been created.
+New User 123 was registered.
+User 123 logged out.
+New User 1234 was registered.
+New User 12345 was registered.
+New room 1234 has been created.
+Sent message '/roomsUpdated' to all users.
+Server stopped.
+Server stopped.
+Room 1234 was renamed to 12.
+Sent message '/roomsUpdated' to all users.
+Sent message '123 connected' to all except Thread-4.
+New User 123 was registered.
+Sent message '123 disconnected' to all users.
+User 123 logged out.

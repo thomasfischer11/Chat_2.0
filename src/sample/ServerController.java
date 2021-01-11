@@ -243,6 +243,7 @@ public class ServerController {
             server.writeInServerLog("New room " + textFieldRoomName.getText() + " has been created.");
             textFieldRoomName.clear();
             server.getController().updateVBoxRooms();
+            server.sendToAll("/roomsUpdated");
 
         }
     }
@@ -254,6 +255,7 @@ public class ServerController {
             textAreaSuccessDeleteRoom.setText("Success!");
             server.writeInServerLog("Room "+ choiceBoxRoomsInDelete.getValue()+ " was deleted.");
             server.getController().updateVBoxRooms();
+            server.sendToAll("/roomsUpdated");
         }
     }
 
@@ -268,6 +270,7 @@ public class ServerController {
                 server.writeInServerLog("Room "+ choiceBoxRoomsInEdit.getValue()+ " was renamed to "+ textFieldNewName.getText()+".");
                 textFieldNewName.clear();
                 server.getController().updateVBoxRooms();
+                server.sendToAll("/roomsUpdated");
             }
         }
 

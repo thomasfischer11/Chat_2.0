@@ -70,7 +70,7 @@ public class ClientController {
     }
 
     @FXML
-    private void updateRooms() throws IOException, InterruptedException {
+    public void updateRooms() throws IOException, InterruptedException {
         client.sendMessage("/updateRooms");
         vBoxRooms.getChildren().clear();
         //wait(30);

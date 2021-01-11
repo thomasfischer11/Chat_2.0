@@ -167,6 +167,7 @@ public class ClientThread extends Thread implements Serializable{
             this.isLoggedIn = true;
             System.out.println("f");
             server.writeInServerLog("New User "+ clientName + " was registered.");
+            sendMessage(("/roomsUpdated"));
         }
     }
 

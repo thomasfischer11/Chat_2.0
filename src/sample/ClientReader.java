@@ -69,7 +69,10 @@ public class ClientReader extends Thread {
                     if(messageReceived.startsWith("/roomNames")){
                         client.getController().setRoomNames(messageReceived);
                     }
-                    if(messageReceived.equals("/requestName")) client.getController().getName();
+                    else if(messageReceived.equals("/roomsUpdated)")){
+                        client.getController().updateRooms();
+                    }
+                    else if(messageReceived.equals("/requestName")) client.getController().getName();
                     else if(messageReceived.equals("/requestPW")) client.getController().getPW();
                     else if(messageReceived.equals("/registered") || messageReceived.equals("/loggedIn")) {
                         Platform.runLater(loggedInUpdater);

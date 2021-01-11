@@ -1,11 +1,15 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.*;
@@ -25,10 +29,21 @@ public class Server extends Application {
     private final String userData = "userdata.txt";
     private final String roomData = "roomdata.txt";
 
+
+    EventHandler<WindowEvent> eventHandlerCloseWindow = windowEvent -> {
+        try {
+            stopServer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         readUserData();
         this.primaryStage = primaryStage;
+        primaryStage.onCloseRequestProperty().set(eventHandlerCloseWindow);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServerInterface.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         controller = fxmlLoader.<ServerController>getController();
@@ -41,6 +56,8 @@ public class Server extends Application {
         primaryStage.setTitle("Serverlog");
         primaryStage.show();
     }
+
+
 
     public static void main(String[] args) throws IOException { launch(args); }
 
@@ -80,6 +97,7 @@ public class Server extends Application {
                 aUser.sendMessage(message);
             }
         } catch ( IOException e) {}
+        writeInServerLog("Sent message '"+ message+ "' to all users.");
     }
 
     void sendToRoom(String message, String clientName) throws IOException {
@@ -91,6 +109,7 @@ public class Server extends Application {
                     aUser.sendMessage(message);
                 }
             } catch ( IOException e) {}
+            writeInServerLog("Sent message '"+ message+ "' to room "+ users.get(clientName).getRoom()+".");
         }
 
     }
@@ -104,6 +123,7 @@ public class Server extends Application {
                 }
             }
         } catch ( IOException e) {}
+        writeInServerLog("Sent message '"+ message+ "' to all except "+ excludeUser.getName()+".");
     }
 
     public void writeInServerLog(String log) throws IOException {
@@ -132,7 +152,7 @@ public class Server extends Application {
     }
 
     public void stopServer() throws IOException {
-        showInServerApp("Server is stopped by command...");
+        writeInServerLog("Server is stopped by command...");
         //stopping clientAcceptorThread:
         clientAcceptorThread.setRunning(false);
         Socket server2 =  new Socket("localhost", 1312);
@@ -145,6 +165,7 @@ public class Server extends Application {
             a.getIn().close();
             a.setRunning(false);
         }
+        primaryStage.close();
     }
 
     public void showInServerApp(String message) throws IOException {
