@@ -116,23 +116,72 @@ public class ServerController {
             server.stopServer();
             return;
         }
-        if (command.startsWith("/kick")) {
-            String name = command.substring(6);
-            for (ClientThread aUser : server.getClientThreads()) {
-                if (aUser.getClientName().equals(name)) {
-                    aUser.sendMessage("You were kicked from the Server");
-                    aUser.logout();
-                    server.writeInServerLog("User "+aUser.getClientName()+ " was kicked from the server.");
-                }
-            }
-
+        if (command.startsWith("/warn")){
+            if (command.length() > 6) warnUser(command.substring(6));
+            return;
         }
+        if (command.startsWith("/kick")) {
+            if (command.length() > 6) kickUser(command.substring(6));
+            return;
+        }
+        if (command.startsWith("/ban")) {
+            if (command.length() > 5) banUser(command.substring(5));
+            return;
+        }
+        if (command.startsWith("/unban")){
+            if (command.length() > 7) unbanUser(command.substring(7));
+        }
+    }
+    private void warnUser(String name) throws IOException {
+        if (!server.getUsers().containsKey(name) || !server.getUsers().get(name).isOnline()) return;
+        for (ClientThread aUser : server.getClientThreads()) {
+            if (aUser.getClientName().equals(name)) {
+                aUser.sendMessage("Warning from the Server: Keep it up and you will be kicked / banned! ");
+                server.writeInServerLog("User "+ name + " was warned.");
+                break;
+            }
+        }
+    }
+
+    private void kickUser (String name) throws IOException {
+        if (!server.getUsers().containsKey(name) || !server.getUsers().get(name).isOnline()) return;
+        for (ClientThread aUser : server.getClientThreads()) {
+            if (aUser.getClientName().equals(name)) {
+                aUser.sendMessage("You were kicked from the Server");
+                server.getUsers().get(name).setOnline(false);
+                server.getClientThreads().remove(aUser);
+                server.writeInServerLog("User "+ name + " was kicked from the server.");
+                break;
+            }
+        }
+        server.sendToAll(name + " was kicked from the server.");
+    }
+
+    private void banUser(String name) throws IOException {
+        if (!server.getUsers().containsKey(name) || !server.getUsers().get(name).isOnline()) return;
+        for (ClientThread aUser : server.getClientThreads()) {
+            if (aUser.getClientName().equals(name)) {
+                aUser.sendMessage("You were banned from the Server");
+                server.getUsers().get(name).setOnline(false);
+                server.getUsers().get(name).setBanned(true);
+                server.getClientThreads().remove(aUser);
+                server.writeInServerLog("User "+ name + " was banned from the server.");
+                break;
+            }
+        }
+        server.sendToAll(name + " was banned from the server.");
+    }
+
+    private void unbanUser(String name) throws IOException {
+        if (!server.getUsers().containsKey(name)) return;
+        server.getUsers().get(name).setBanned(false);
+        server.writeInServerLog("User "+ name + " was unbanned from the server.");
+
     }
 
     public TextArea getTxtAreaServer() {
         return txtAreaServer;
     }
-
 
 
     @FXML

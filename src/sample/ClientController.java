@@ -66,8 +66,10 @@ public class ClientController {
         this.client.setClientReader(new ClientReader(this.client.getServer(), this.client));
         this.client.getClientReader().start();
         this.client.setOut(new DataOutputStream(this.client.getServer().getOutputStream()));
-
+        this.client.setConnected(true);
     }
+
+
 
     @FXML
     public void updateRooms() throws IOException, InterruptedException {
@@ -168,6 +170,7 @@ public class ClientController {
                 labelError.setVisible(true);
                 return;
             }
+            if(!client.isConnected()) client.reconnect();
             if (register) client.sendMessage("/register");
             else client.sendMessage("/login");
         } else {
@@ -222,7 +225,9 @@ public class ClientController {
         txtFieldClient.setEditable(true);
         labelLoginRegister.setVisible(false);
         labelLoginRegister.setText("Login");
-        buttonChangeLoginRegister.setVisible(false);;
+        labelChangeLoginRegister.setText("Not registered yet?");
+        buttonChangeLoginRegister.setText("Register");
+        buttonChangeLoginRegister.setVisible(false);
         labelChangeLoginRegister.setVisible(false);
         txtFieldUsername.setVisible(false);
         pwField.setVisible(false);
@@ -237,7 +242,7 @@ public class ClientController {
     }
 
     public void logOut() throws IOException {
-        client.sendMessage("/logout");
+        if (client.isConnected()) client.sendMessage("/logout");
         client.setLoggedIn(false);
         buttonConnect.setText("Log in");
         txtFieldClient.setEditable(false);
@@ -256,5 +261,9 @@ public class ClientController {
 
     public void setRoomNames(String roomNames) {
         this.roomNames = roomNames;
+    }
+
+    public Label getLabelError (){
+        return labelError;
     }
 }

@@ -8,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.*;
@@ -28,7 +26,6 @@ public class Server extends Application {
     private final String serverLog = "serverlog.txt";
     private final String userData = "userdata.txt";
     private final String roomData = "roomdata.txt";
-
 
     EventHandler<WindowEvent> eventHandlerCloseWindow = windowEvent -> {
         try {
@@ -68,26 +65,28 @@ public class Server extends Application {
         isOnline = true;
     }
 
-    private void readUserData() throws IOException, ClassNotFoundException {
-        FileInputStream fi = new FileInputStream(new File(userData));
-        ObjectInputStream oi = new ObjectInputStream(fi);
-        this.users = (HashMap<String, User>)oi.readObject();
-        oi.close();
-        fi.close();
-        fi = new FileInputStream(new File(roomData));
-        oi = new ObjectInputStream(fi);
-        StringBuilder roomNames = new StringBuilder((String)oi.readObject());
-        while(roomNames.length() != 0){
-            StringBuilder roomName = new StringBuilder();
-            while(roomNames.charAt(0) != '/'){
-                roomName.append(roomNames.charAt(0));
+    private void readUserData() throws IOException, ClassNotFoundException{
+        try {
+            FileInputStream fi = new FileInputStream(new File(userData));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            this.users = (HashMap<String, User>) oi.readObject();
+            oi.close();
+            fi.close();
+            fi = new FileInputStream(new File(roomData));
+            oi = new ObjectInputStream(fi);
+            StringBuilder roomNames = new StringBuilder((String) oi.readObject());
+            while (roomNames.length() != 0) {
+                StringBuilder roomName = new StringBuilder();
+                while (roomNames.charAt(0) != '/') {
+                    roomName.append(roomNames.charAt(0));
+                    roomNames.deleteCharAt(0);
+                }
+                rooms.put(roomName.toString(), new HashSet<>());
                 roomNames.deleteCharAt(0);
             }
-            rooms.put(roomName.toString(), new HashSet<>());
-            roomNames.deleteCharAt(0);
-        }
-        oi.close();
-        fi.close();
+            oi.close();
+            fi.close();
+        } catch (IOException e) { }
     }
 
     void sendToAll(String message) throws IOException {
@@ -157,11 +156,12 @@ public class Server extends Application {
         clientAcceptorThread.setRunning(false);
         Socket server2 =  new Socket("localhost", 1312);
         server2.close();
+        for (User u : users.values()) u.setOnline(false);
         //saving user data
         saveUserData();
         // closing all clientThreads:
         for(ClientThread a : clientThreads){
-            a.sendMessage("Disconnected: The Server was stopped.");
+            if(a.getOut() != null) a.sendMessage("Disconnected: The Server was stopped.");
             a.getIn().close();
             a.setRunning(false);
         }

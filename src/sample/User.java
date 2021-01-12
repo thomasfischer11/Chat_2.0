@@ -6,6 +6,7 @@ public class User implements Serializable {
     private String name;
     private String password;
     private boolean online;
+    private boolean isBanned;
     private int usernumber;
     private String room;
 
@@ -15,6 +16,7 @@ public class User implements Serializable {
         this.online = false;
         this.usernumber = usernumber;
         this.room = room;
+        this.isBanned = false;
     }
 
     public String getName() {
@@ -57,8 +59,16 @@ public class User implements Serializable {
         this.room = room;
     }
 
+    public void setBanned (boolean b){
+        isBanned = b;
+    }
+
+    public boolean isBanned (){
+        return isBanned;
+    }
+
     @Override
     public String toString() {
-        return "name:" + name + "\npassword: " + password + "\nonline: " + online + "usernumber: " + usernumber + "room: " + room;
+        return "name:" + name + "\npassword: " + password + "\nonline: " + online + "usernumber: " + usernumber + "room: " + room + "banned: " + isBanned;
     }
 }

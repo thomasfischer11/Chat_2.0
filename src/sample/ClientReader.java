@@ -77,7 +77,7 @@ public class ClientReader extends Thread {
                     else if(messageReceived.equals("/registered") || messageReceived.equals("/loggedIn")) {
                         Platform.runLater(loggedInUpdater);
                     }
-                    else if (messageReceived.equals("/errAlreadyOnline") || messageReceived.equals("/errNotRegistered") || messageReceived.equals("/errWrongPW") || messageReceived.equals("/errAlreadyRegistered")){
+                    else if (messageReceived.equals("/error")){
                         Platform.runLater(errorUpdater);
                     }
                     //else if(messageReceived.equals("/errAlreadyOnline")) client.getController().printError("Error: User is already Online");
@@ -90,12 +90,13 @@ public class ClientReader extends Thread {
                     //client.showMessage(messageReceived); //Platform.runLater(messageUpdater);
                 }
             }
-            while (!messageReceived.equals("Logged out") && !messageReceived.equals("Disconnected: The Server was stopped."));
+            while (!messageReceived.equals("Logged out") && !messageReceived.equals("Disconnected: The Server was stopped.") && !messageReceived.equals("You were kicked from the Server") && !messageReceived.equals("You were banned from the Server"));
             // Streams schließen
-            Platform.runLater(logOut);
             sleep(10);
             in.close();
             client.getOut().close();
+            client.setConnected(false);
+            Platform.runLater(logOut);
 
         } catch (IOException | InterruptedException ignored) { }
     }

@@ -2,22 +2,34 @@ package sample;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;
 
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Client extends Application  {
     private Socket server;
     private ClientReader clientReader;
     private ClientController controller;
     private DataOutputStream out;
+    private boolean connected;
     private boolean loggedIn = false;
+
+    EventHandler<WindowEvent> eventHandlerCloseWindow = windowEvent -> {
+        try {
+            controller.logOut();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -28,6 +40,7 @@ public class Client extends Application  {
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Chat Server");
+        primaryStage.onCloseRequestProperty().set(eventHandlerCloseWindow);
         primaryStage.show();
     }
 
@@ -41,6 +54,16 @@ public class Client extends Application  {
     public void sendMessage(String message) throws IOException {
         out.writeUTF(message);
         if (isLoggedIn()) controller.getTxtFieldClient().setText("");
+    }
+
+    public void reconnect () throws IOException, ConnectException {
+        try {
+            server = new Socket("localhost", 1312);
+            clientReader = new ClientReader(server, this);
+            clientReader.start();
+            out = new DataOutputStream(server.getOutputStream());
+            this.setConnected(true);
+        } catch (ConnectException e) {controller.getLabelError().setText("Can't connect to Server");}
     }
 
     public void showMessage(String message){
@@ -78,4 +101,8 @@ public class Client extends Application  {
     public void setLoggedIn(boolean b) {
         loggedIn = b;
     }
+
+    public boolean isConnected(){return connected;}
+
+    public void setConnected(boolean b){ connected = b;}
 }
