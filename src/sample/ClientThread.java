@@ -98,6 +98,7 @@ public class ClientThread extends Thread implements Serializable{
     public void logout() throws IOException {
         sendMessage("Logged out");
         server.getUsers().get(clientName).setOnline(false);
+        server.getUsers().get(clientName).setRoom("");
         server.getClientThreads().remove(this);
         server.sendToAll(clientName + " disconnected");
         server.writeInServerLog("User "+ clientName + " logged out.");
