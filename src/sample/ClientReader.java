@@ -29,10 +29,34 @@ public class ClientReader extends Thread {
             }
         }
     };*/
-    Runnable errorUpdater = new Runnable() {
+    Runnable ErrorNotRegisteredUpdater = new Runnable() {
         @Override
         public void run() {
-            client.getController().printError("Error: Check your entered data");
+            client.getController().printError("Error: No User with this name is registered");
+        }
+    };
+    Runnable ErrorAlreadyOnlineUpdater = new Runnable() {
+        @Override
+        public void run() {
+            client.getController().printError("Error: User with this name is already online");
+        }
+    };
+    Runnable ErrorIsBannedUpdater = new Runnable() {
+        @Override
+        public void run() {
+            client.getController().printError("Error: You're banned from the Server");
+        }
+    };
+    Runnable ErrorWrongPWUpdater = new Runnable() {
+        @Override
+        public void run() {
+            client.getController().printError("Error: Wrong Password");
+        }
+    };
+    Runnable ErrorAlreadyRegisteredUpdater = new Runnable() {
+        @Override
+        public void run() {
+            client.getController().printError("Error: User with this Name is already registered");
         }
     };
     Runnable messageUpdater = new Runnable() {
@@ -77,17 +101,26 @@ public class ClientReader extends Thread {
                     else if(messageReceived.equals("/registered") || messageReceived.equals("/loggedIn")) {
                         Platform.runLater(loggedInUpdater);
                     }
-                    else if (messageReceived.equals("/error")){
-                        Platform.runLater(errorUpdater);
+                    else if (messageReceived.startsWith("/err")){
+                        if (messageReceived.equals("/errNotRegistered")) {
+                            Platform.runLater(ErrorNotRegisteredUpdater);
+                        }
+                        if (messageReceived.equals("/errAlreadyOnline")) {
+                            Platform.runLater(ErrorAlreadyOnlineUpdater);
+                        }
+                        if (messageReceived.equals("/errIsBanned")) {
+                            Platform.runLater(ErrorIsBannedUpdater);
+                        }
+                        if (messageReceived.equals("/errWrongPW")) {
+                            Platform.runLater(ErrorWrongPWUpdater);
+                        }
+                        if (messageReceived.equals("/errAlreadyRegistered")) {
+                            Platform.runLater(ErrorAlreadyRegisteredUpdater);
+                        }
                     }
-                    //else if(messageReceived.equals("/errAlreadyOnline")) client.getController().printError("Error: User is already Online");
-                    //else if(messageReceived.equals("/errNotRegistered")) client.getController().printError("Error: User is not registered");
-                    //else if(messageReceived.equals("/errWrongPW")) client.getController().printError("Error: Wrong Password");
-                    //else if(messageReceived.equals("/errAlreadyRegistered")) client.getController().printError("Error: User with this name is already registered");
                 }
                 else {
                     Platform.runLater(messageUpdater);
-                    //client.showMessage(messageReceived); //Platform.runLater(messageUpdater);
                 }
             }
             while (!messageReceived.equals("Logged out") && !messageReceived.equals("Disconnected: The Server was stopped.") && !messageReceived.equals("You were kicked from the Server") && !messageReceived.equals("You were banned from the Server"));
