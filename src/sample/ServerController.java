@@ -156,6 +156,7 @@ public class ServerController {
             if (aUser.getClientName().equals(name)) {
                 aUser.sendMessage("You were kicked from the Server");
                 server.getUsers().get(name).setOnline(false);
+                server.getUsers().get(name).setRoom("");
                 server.getClientThreads().remove(aUser);
                 server.writeInServerLog("User "+ name + " was kicked from the server.");
                 break;
