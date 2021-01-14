@@ -109,7 +109,10 @@ public class ClientThread extends Thread implements Serializable{
         server.sendToAll(clientName + " disconnected");
         server.writeInServerLog("User "+ clientName + " logged out.");
         Platform.runLater(vBoxRoomsUpdater);
-
+        //andere ClientInterfaces updaten
+        for(ClientThread a : server.getClientThreads()) {
+            a.sendMessage(server.encodeRoomNames());
+        }
     }
 
     private void registerLogin() throws IOException {

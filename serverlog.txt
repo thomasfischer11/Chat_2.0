@@ -302,3 +302,48 @@ Room 123 was deleted.
 Sent message '/roomsUpdated' to all users.
 Room Geburtstagsparty was renamed to Geburtstag Phillip.
 Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message 'a connected' to all except Thread-5.
+New User a was registered.
+Sent message 'a disconnected' to all users.
+User a logged out.
+Sent message 'a connected' to all except Thread-6.
+User a logged in.
+Sent message 'a disconnected' to all users.
+User a logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message 'a connected' to all except Thread-5.
+User a logged in.
+User 123 was kicked from the server.
+Sent message '123 was kicked from the server.' to all users.
+Sent message '123 connected' to all except Thread-6.
+User 123 logged in.
+User 123 was banned from the server.
+Sent message '123 was banned from the server.' to all users.
+User 123 was unbanned from the server.
+Sent message '123 connected' to all except Thread-7.
+User 123 logged in.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+User is still online. Deletion is only allowed for offline Users.
+User is still online. Deletion is only allowed for offline Users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+User 123 has been removed from registered Users.
+Sent message '123 connected' to all except Thread-5.
+New User 123 was registered.
+Server is stopped by command...
+User 1234123 has been removed from registered Users.
+User 12345 has been removed from registered Users.
+User 12344 has been removed from registered Users.
+User 123412312 has been removed from registered Users.
+User 123454632 has been removed from registered Users.
+User 1234 has been removed from registered Users.
+Room sjoehifiwefw was deleted.
+Sent message '/roomsUpdated' to all users.
+Server is stopped by command...
+Server is stopped by command...
