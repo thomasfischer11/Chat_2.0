@@ -125,20 +125,20 @@ public class ClientThread extends Thread implements Serializable{
     public void login(String clientName, String clientPW) throws IOException {
         System.out.println("l");
         if (!server.getUsers().containsKey(clientName)) {
-            sendMessage("/error");
+            sendMessage("/errNotRegistered");
             System.out.println("b");
             return;
         }
         if (server.getUsers().get(clientName).isOnline()){
-            sendMessage("/error");
+            sendMessage("/errAlreadyOnline");
             System.out.println("a");
             return;
         }
-        if(server.getUsers().get(clientName).isBanned()){
-            sendMessage("/error");
-            return;
-        }
         if (clientPW.equals(server.getUsers().get(clientName).getPassword())) {
+            if(server.getUsers().get(clientName).isBanned()){
+                sendMessage("/errIsBanned");
+                return;
+            }
             server.sendToAllExcept(clientName + " connected", this);
             sendMessage("/loggedIn");
             server.getUsers().get(clientName).setOnline(true);
@@ -147,7 +147,7 @@ public class ClientThread extends Thread implements Serializable{
             server.writeInServerLog("User "+ clientName + " logged in.");
         }
         else {
-            sendMessage("/error");
+            sendMessage("/errWrongPW");
             System.out.println("d");
             return;
         }
@@ -156,7 +156,7 @@ public class ClientThread extends Thread implements Serializable{
     private void register(String clientName, String clientPW) throws IOException {
         System.out.println("r");
         if(server.getUsers().containsKey(clientName)){
-            sendMessage("/error");
+            sendMessage("/errAlreadyRegistered");
             System.out.println("e");
             return;
         }

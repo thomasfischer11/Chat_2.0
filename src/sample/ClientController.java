@@ -171,8 +171,10 @@ public class ClientController {
                 return;
             }
             if(!client.isConnected()) client.reconnect();
-            if (register) client.sendMessage("/register");
-            else client.sendMessage("/login");
+            if (client.isConnected()) {
+                if (register) client.sendMessage("/register");
+                else client.sendMessage("/login");
+            }
         } else {
             logOut();
             return;
@@ -243,7 +245,6 @@ public class ClientController {
 
     public void logOut() throws IOException {
         if (client.isConnected()) client.sendMessage("/logout");
-        client.setLoggedIn(false);
         buttonConnect.setText("Log in");
         txtFieldClient.setEditable(false);
         labelLoginRegister.setVisible(true);
@@ -257,6 +258,8 @@ public class ClientController {
         buttonUpdateRooms.setVisible(false);
         buttonJoinRoom.setVisible(false);
         labelRooms.setVisible(false);
+        client.setLoggedIn(false);
+        client.setConnected(false);
     }
 
     public void setRoomNames(String roomNames) {

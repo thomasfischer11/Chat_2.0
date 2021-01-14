@@ -154,8 +154,6 @@ public class Server extends Application {
         writeInServerLog("Server is stopped by command...");
         //stopping clientAcceptorThread:
         clientAcceptorThread.setRunning(false);
-        Socket server2 =  new Socket("localhost", 1312);
-        server2.close();
         for (User u : users.values()) u.setOnline(false);
         //saving user data
         saveUserData();
@@ -165,6 +163,8 @@ public class Server extends Application {
             a.getIn().close();
             a.setRunning(false);
         }
+        Socket server2 =  new Socket("localhost", 1312);
+        server2.close();
         primaryStage.close();
     }
 
