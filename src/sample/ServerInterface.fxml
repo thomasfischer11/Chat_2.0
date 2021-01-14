@@ -31,6 +31,7 @@
             <Button fx:id="buttonKickUser" layoutX="455.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#onButtonKickUser" prefHeight="25.0" prefWidth="100.0" text="kick user" />
             <Button fx:id="buttonBanUser" layoutX="585.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#onButtonBanUser" text="ban user" />
             <Button fx:id="buttonOpenDeleteRoomWindow" layoutX="687.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#openDeleteRoomWindow" text="delete room" />
+            <Button fx:id="buttonWarnUser" layoutX="582.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#onbuttonWarnUser" text="warn user" />
 
       </children>
     </Pane>

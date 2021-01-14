@@ -80,6 +80,10 @@ public class ClientThread extends Thread implements Serializable{
                     server.getUsers().get(clientName).setRoom(roomName.toString());
                     //update ServerInterface
                     Platform.runLater(vBoxRoomsUpdater);
+                    //update ClientInterfaces
+                    for(ClientThread a : server.getClientThreads()){
+                        a.sendMessage(server.encodeRoomNames());
+                    }
                 }
                 else{
                     clientMessage = clientName + ": " + clientMessage;

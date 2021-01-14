@@ -87,6 +87,12 @@ public class ClientReader extends Thread {
             client.getController().updateRooms();
         }
     };
+    Runnable currentRoomUpdater = new Runnable() {
+        @Override
+        public void run(){
+            client.getController().labelCurrentRoom.setText("Current room: " + client.getController().getCurrentRoom());
+        }
+    };
 
     ClientReader(Socket server , Client client){
         this.server = server;
@@ -104,6 +110,12 @@ public class ClientReader extends Thread {
                     if(messageReceived.startsWith("/roomNames")){
                         client.getController().setRoomNames(messageReceived);
                         Platform.runLater(roomUpdater);
+                    }
+                    else if(messageReceived.startsWith("/roomChanged")){
+                        StringBuilder stringBuilder = new StringBuilder(messageReceived);
+                        stringBuilder.delete(0, 13);
+                        client.getController().setCurrentRoom(stringBuilder.toString());
+                        Platform.runLater(currentRoomUpdater);
                     }
                     else if(messageReceived.equals("/requestName")) client.getController().getName();
                     else if(messageReceived.equals("/requestPW")) client.getController().getPW();

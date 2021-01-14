@@ -65,6 +65,8 @@ public class ServerController {
     Button buttonKickUser;
     @FXML
     Button buttonBanUser;
+    @FXML
+    Button buttonWarnUser;
 
 
 
@@ -171,6 +173,7 @@ public class ServerController {
             if (aUser.getClientName().equals(name)) {
                 aUser.sendMessage("You were banned from the Server");
                 server.getUsers().get(name).setOnline(false);
+                server.getUsers().get(name).setRoom("");
                 server.getClientThreads().remove(aUser);
                 server.writeInServerLog("User "+ name + " was banned from the server.");
                 break;
@@ -310,6 +313,14 @@ public class ServerController {
     @FXML
     private void deleteRoom() throws IOException {
         if(choiceBoxRoomsInDelete.getValue() != null){
+            for(User u : server.getUsers().values()){
+                if(u.getRoom().equals(choiceBoxRoomsInDelete.getValue())){
+                    u.setRoom("");
+                }
+            }
+            for(ClientThread a: server.getRooms().get(choiceBoxRoomsInDelete.getValue())){
+                a.sendMessage("/roomChanged+none");
+            }
             server.getRooms().remove(choiceBoxRoomsInDelete.getValue());
             textAreaSuccessDeleteRoom.setText("Success!");
             server.writeInServerLog("Room "+ choiceBoxRoomsInDelete.getValue()+ " was deleted.");
@@ -330,11 +341,19 @@ public class ServerController {
                 server.getRooms().put(textFieldNewName.getText(), temp);
                 textAreaSuccessEditRoom.setText("Success!");
                 server.writeInServerLog("Room "+ choiceBoxRoomsInEdit.getValue()+ " was renamed to "+ textFieldNewName.getText()+".");
-                textFieldNewName.clear();
-                server.getController().updateVBoxRooms();
+                for(User u : server.getUsers().values()){
+                    if(u.getRoom().equals(choiceBoxRoomsInEdit.getValue())){
+                        u.setRoom(textFieldNewName.getText());
+                    }
+                }
+                for(ClientThread a: server.getRooms().get(textFieldNewName.getText())){
+                    a.sendMessage("/roomChanged+"+ textFieldNewName.getText());
+                }
                 for(ClientThread a: server.getClientThreads()){
                     a.sendMessage(server.encodeRoomNames());
                 }
+                server.getController().updateVBoxRooms();
+                textFieldNewName.clear();
             }
         }
 
@@ -362,6 +381,7 @@ public class ServerController {
         buttonKickUser.setVisible(false);
         buttonUnbanUser.setVisible(false);
         buttonBanUser.setVisible(false);
+        buttonWarnUser.setVisible(false);
     }
 
     @FXML
@@ -388,6 +408,7 @@ public class ServerController {
         buttonKickUser.setVisible(true);
         buttonUnbanUser.setVisible(true);
         buttonBanUser.setVisible(true);
+        buttonWarnUser.setVisible(true);
     }
 
     private String onlineStatus(boolean x){
@@ -461,5 +482,24 @@ public class ServerController {
             banUser(userName.toString());
         }
         updateVBoxUsers();
+    }
+
+    @FXML
+    private void onbuttonWarnUser() throws IOException {
+        Button a = null;
+        for(Node n: vBoxRoomsUsers.getChildren()){
+            if(n.getStyle().equals("-fx-text-fill: blue;")){
+                a = (Button)n;
+            }
+        }
+        if (a != null){
+            StringBuilder userName = new StringBuilder(a.getText());
+            int i = 0;
+            while(userName.charAt(i) != '('){
+                i++;
+            }
+            userName.delete(i, userName.length());
+            warnUser(userName.toString());
+        }
     }
 }

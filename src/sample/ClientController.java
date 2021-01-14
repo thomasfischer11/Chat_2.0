@@ -58,6 +58,7 @@ public class ClientController {
     private Client client;
     private String roomNames = "";
     private String room = "";
+    private String currentRoom = "";
 
 
     public void setClient(Client client) throws IOException, ClassNotFoundException {
@@ -268,5 +269,13 @@ public class ClientController {
 
     public Label getLabelError (){
         return labelError;
+    }
+
+    public void setCurrentRoom(String currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public String getCurrentRoom() {
+        return currentRoom;
     }
 }

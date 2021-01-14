@@ -217,3 +217,88 @@ Sent message '123 connected' to all except Thread-8.
 User 123 logged in.
 Sent message '123 disconnected' to all users.
 User 123 logged out.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 123 was renamed to 1234.
+Room 1234 was deleted.
+Sent message '/roomsUpdated' to all users.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 123 was renamed to 1234.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 123 was renamed to 1234.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 123 was renamed to 1234.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 123 was renamed to 1234.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 1234 was renamed to 123.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Room 123 was deleted.
+Sent message '/roomsUpdated' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '123454632 connected' to all except Thread-5.
+New User 123454632 was registered.
+Sent message '123454632 disconnected' to all users.
+User 123454632 logged out.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '1234123 connected' to all except Thread-5.
+New User 1234123 was registered.
+Room awrwda was renamed to 123.
+Sent message '1234123 disconnected' to all users.
+User 1234123 logged out.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+User 123 was warned.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+User 123 was warned.
+User 123 was warned.
+User 123 was warned.
+User 123 was warned.
+User 123 was warned.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '123412312 connected' to all except Thread-5.
+New User 123412312 was registered.
+User 123412312 was banned from the server.
+Sent message '123412312 was banned from the server.' to all users.
+User 123412312 was unbanned from the server.
+Sent message '123412312 connected' to all except Thread-6.
+User 123412312 logged in.
+User 123 was kicked from the server.
+Sent message '123 was kicked from the server.' to all users.
+Sent message '123 connected' to all except Thread-7.
+User 123 logged in.
+Sent message '123: hiii' to room 123.
+Sent message '123: 123123123' to room Geburtstagsparty.
+Room 123 was deleted.
+Sent message '/roomsUpdated' to all users.
+Room Geburtstagsparty was renamed to Geburtstag Phillip.
+Server is stopped by command...
