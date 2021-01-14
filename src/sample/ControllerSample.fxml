@@ -32,11 +32,11 @@
             <Label fx:id="labelChangeLoginRegister" layoutX="515.0" layoutY="522.0" text="Not registered yet?" />
             <Button fx:id="buttonChangeLoginRegister" layoutX="663.0" layoutY="518.0" mnemonicParsing="false" onMouseClicked="#onChangeLoginRegisterClicked" text="Register" />
             <Label fx:id="labelError" layoutX="515.0" layoutY="300.0" textFill="RED" visible="false" />
-            <VBox fx:id="vBoxRooms" layoutX="468.0" layoutY="44.0" prefHeight="183.0" prefWidth="294.0" />
-            <Label fx:id="labelRooms" layoutX="468.0" layoutY="27.0" prefHeight="17.0" prefWidth="44.0" text="Rooms:" />
-            <Button fx:id="buttonUpdateRooms" layoutX="465.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#updateRooms" text="update rooms" />
-            <Button fx:id="buttonJoinRoom" layoutX="589.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#joinRoom" text="join room" />
-            <Label fx:id="labelCurrentRoom" layoutX="589.0" layoutY="27.0" prefHeight="17.0" prefWidth="172.0" text="Current Room: none" />
+            <VBox fx:id="vBoxRooms" layoutX="468.0" layoutY="44.0" prefHeight="183.0" prefWidth="294.0" visible="false"/>
+            <Label fx:id="labelRooms" layoutX="468.0" layoutY="27.0" prefHeight="17.0" prefWidth="44.0" text="Rooms:" visible="false"/>
+            <Button fx:id="buttonUpdateRooms" layoutX="465.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#onButtonupdateRooms" text="update rooms" visible="false"/>
+            <Button fx:id="buttonJoinRoom" layoutX="589.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#joinRoom" text="join room" visible="false"/>
+            <Label fx:id="labelCurrentRoom" layoutX="589.0" layoutY="27.0" prefHeight="17.0" prefWidth="172.0" text="Current Room: none" visible="false"/>
          </children>
       </Pane>
    </children>

@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.application.Platform;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -14,6 +16,16 @@ public class ClientThread extends Thread implements Serializable{
     private String clientName;
     private String clientPW;
     private boolean isLoggedIn;
+
+    Runnable vBoxRoomsUpdater = new Runnable() {
+        @Override
+        public void run(){
+            if(server.getController().buttonOpenCreateRoomWindow.isVisible()) {
+                server.getController().updateVBoxRooms();
+            }
+            else server.getController().updateVBoxUsers();
+        }
+    };
 
     public ClientThread(Socket client, Server server) {
         this.client = client;
@@ -48,20 +60,7 @@ public class ClientThread extends Thread implements Serializable{
                     break;
                 }
                 else if (clientMessage.equals("/updateRooms")) {
-                    StringBuilder roomNames = new StringBuilder();
-                    roomNames.append("/roomNames+");
-                    for(String s: server.getRooms().keySet()){
-                        roomNames.append(s);
-                        roomNames.append(" (");
-                        for(User a: server.getUsers().values()){
-                            if(a.getRoom().equals(s)){
-                                roomNames.append(a.getName()).append(", ");
-                            }
-                        }
-                        roomNames.append(")");
-                        roomNames.append("+");
-                    }
-                    sendMessage(roomNames.toString());
+                    sendMessage(server.encodeRoomNames());
                 }
                 else if(clientMessage.startsWith("/joinRoom+")){
                     StringBuilder roomName = new StringBuilder();
@@ -79,6 +78,8 @@ public class ClientThread extends Thread implements Serializable{
                     server.getRooms().get(roomName.toString()).add(this);
                     //change room-name in user-class
                     server.getUsers().get(clientName).setRoom(roomName.toString());
+                    //update ServerInterface
+                    Platform.runLater(vBoxRoomsUpdater);
                 }
                 else{
                     clientMessage = clientName + ": " + clientMessage;
@@ -95,6 +96,7 @@ public class ClientThread extends Thread implements Serializable{
         }
     }
 
+
     public void logout() throws IOException {
         sendMessage("Logged out");
         server.getUsers().get(clientName).setOnline(false);
@@ -102,6 +104,8 @@ public class ClientThread extends Thread implements Serializable{
         server.getClientThreads().remove(this);
         server.sendToAll(clientName + " disconnected");
         server.writeInServerLog("User "+ clientName + " logged out.");
+        Platform.runLater(vBoxRoomsUpdater);
+
     }
 
     private void registerLogin() throws IOException {
@@ -144,7 +148,10 @@ public class ClientThread extends Thread implements Serializable{
             server.getUsers().get(clientName).setOnline(true);
             this.isLoggedIn = true;
             System.out.println("c");
+            sendMessage(server.encodeRoomNames());
             server.writeInServerLog("User "+ clientName + " logged in.");
+            Platform.runLater(vBoxRoomsUpdater);
+
         }
         else {
             sendMessage("/errWrongPW");
@@ -168,7 +175,9 @@ public class ClientThread extends Thread implements Serializable{
             this.isLoggedIn = true;
             System.out.println("f");
             server.writeInServerLog("New User "+ clientName + " was registered.");
-            sendMessage(("/roomsUpdated"));
+            sendMessage(server.encodeRoomNames());
+            Platform.runLater(vBoxRoomsUpdater);
+
         }
     }
 

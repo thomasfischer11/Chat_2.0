@@ -69,13 +69,8 @@ public class ClientController {
         this.client.setConnected(true);
     }
 
-
-
-    @FXML
-    public void updateRooms() throws IOException, InterruptedException {
-        client.sendMessage("/updateRooms");
+    public void updateRooms(){
         vBoxRooms.getChildren().clear();
-        //wait(30);
         StringBuilder roomNamesTemp = new StringBuilder();
         roomNamesTemp.append(roomNames);
         if(!roomNamesTemp.toString().equals("")) {
@@ -104,6 +99,11 @@ public class ClientController {
     }
 
     @FXML
+    public void onButtonupdateRooms() throws IOException {
+        client.sendMessage("/updateRooms");
+    }
+
+    @FXML
     private void joinRoom() throws IOException, InterruptedException {
         Button a = null;
         for(Node n : vBoxRooms.getChildren()) {
@@ -122,7 +122,7 @@ public class ClientController {
             this.room = roomToJoin.toString();
             labelCurrentRoom.setText("Current room: "+ roomToJoin.toString());
         }
-        updateRooms();
+        onButtonupdateRooms();
     }
 
     @FXML

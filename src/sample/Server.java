@@ -154,7 +154,10 @@ public class Server extends Application {
         writeInServerLog("Server is stopped by command...");
         //stopping clientAcceptorThread:
         clientAcceptorThread.setRunning(false);
-        for (User u : users.values()) u.setOnline(false);
+        for (User u : users.values()) {
+            u.setOnline(false);
+            u.setRoom("");
+        }
         //saving user data
         saveUserData();
         // closing all clientThreads:
@@ -166,6 +169,24 @@ public class Server extends Application {
         Socket server2 =  new Socket("localhost", 1312);
         server2.close();
         primaryStage.close();
+    }
+
+
+    public String encodeRoomNames(){
+        StringBuilder roomNames = new StringBuilder();
+        roomNames.append("/roomNames+");
+        for(String s: rooms.keySet()){
+            roomNames.append(s);
+            roomNames.append(" (");
+            for(User a: users.values()){
+                if(a.getRoom().equals(s)){
+                    roomNames.append(a.getName()).append(", ");
+                }
+            }
+            roomNames.append(")");
+            roomNames.append("+");
+        }
+        return roomNames.toString();
     }
 
     public void showInServerApp(String message) throws IOException {

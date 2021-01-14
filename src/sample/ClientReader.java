@@ -16,6 +16,11 @@ public class ClientReader extends Thread {
         @Override
         public void run() {
             client.getController().login();
+            client.getController().buttonUpdateRooms.setVisible(true);
+            client.getController().vBoxRooms.setVisible(true);
+            client.getController().labelRooms.setVisible(true);
+            client.getController().buttonJoinRoom.setVisible(true);
+            client.getController().labelCurrentRoom.setVisible(true);
             client.showMessage("Logged In!");
         }
     };
@@ -76,6 +81,12 @@ public class ClientReader extends Thread {
         }
         }
     };
+    Runnable roomUpdater = new Runnable() {
+        @Override
+        public void run(){
+            client.getController().updateRooms();
+        }
+    };
 
     ClientReader(Socket server , Client client){
         this.server = server;
@@ -92,9 +103,7 @@ public class ClientReader extends Thread {
                 if(messageReceived.startsWith("/")){
                     if(messageReceived.startsWith("/roomNames")){
                         client.getController().setRoomNames(messageReceived);
-                    }
-                    else if(messageReceived.equals("/roomsUpdated)")){
-                        client.getController().updateRooms();
+                        Platform.runLater(roomUpdater);
                     }
                     else if(messageReceived.equals("/requestName")) client.getController().getName();
                     else if(messageReceived.equals("/requestPW")) client.getController().getPW();
