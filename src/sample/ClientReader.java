@@ -18,7 +18,6 @@ public class ClientReader extends Thread {
             client.getController().login();
             client.getController().buttonUpdateRooms.setVisible(true);
             client.getController().vBoxRooms.setVisible(true);
-            client.getController().labelRooms.setVisible(true);
             client.getController().buttonJoinRoom.setVisible(true);
             client.getController().labelCurrentRoom.setVisible(true);
             client.showMessage("Logged In!");
@@ -87,6 +86,16 @@ public class ClientReader extends Thread {
             client.getController().updateRooms();
         }
     };
+    Runnable userUpdater = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                client.getController().updateUsers();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
     Runnable currentRoomUpdater = new Runnable() {
         @Override
         public void run(){
@@ -110,6 +119,10 @@ public class ClientReader extends Thread {
                     if(messageReceived.startsWith("/roomNames")){
                         client.getController().setRoomNames(messageReceived);
                         Platform.runLater(roomUpdater);
+                    }
+                    else if(messageReceived.startsWith("/userNames")){
+                        client.getController().setUserNames(messageReceived);
+                        Platform.runLater(userUpdater);
                     }
                     else if(messageReceived.startsWith("/roomChanged")){
                         StringBuilder stringBuilder = new StringBuilder(messageReceived);

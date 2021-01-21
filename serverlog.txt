@@ -347,3 +347,50 @@ Room sjoehifiwefw was deleted.
 Sent message '/roomsUpdated' to all users.
 Server is stopped by command...
 Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+New room RAUM1 has been created.
+Sent message '/roomsUpdated' to all users.
+Room RAUM1 was renamed to hawbdaw.
+Room hawbdaw was deleted.
+Sent message '/roomsUpdated' to all users.
+User 123 was kicked from the server.
+Sent message '123 was kicked from the server.' to all users.
+Sent message '123 connected' to all except Thread-5.
+User 123 logged in.
+User 123 was banned from the server.
+Sent message '123 was banned from the server.' to all users.
+User 123 was unbanned from the server.
+Sent message '1234 connected' to all except Thread-6.
+New User 1234 was registered.
+Sent message '1234: ihawbdba' to room Geburtstag Phillip.
+User 1234 was warned.
+User 123 has been removed from registered Users.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+New User 123 was registered.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-4.
+New User 123 was registered.
+Sent message '123 connected' to all except Thread-4.
+New User 123 was registered.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-5.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-6.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.

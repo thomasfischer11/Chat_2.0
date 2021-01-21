@@ -62,6 +62,12 @@ public class ClientThread extends Thread implements Serializable{
                 else if (clientMessage.equals("/updateRooms")) {
                     sendMessage(server.encodeRoomNames());
                 }
+                else if (clientMessage.equals("/updateUsers"))  {
+                    sendMessage(server.encodeUserNames());
+                }
+                else if(clientMessage.startsWith("/joinPrivateRoom+")){
+
+                }
                 else if(clientMessage.startsWith("/joinRoom+")){
                     StringBuilder roomName = new StringBuilder();
                     roomName.append(clientMessage);

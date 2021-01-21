@@ -50,8 +50,13 @@ public class ClientController {
     @FXML
     Button buttonJoinRoom;
     @FXML
-    Label labelRooms;
-
+    VBox vBoxUsers;
+    @FXML
+    Button buttonUsers;
+    @FXML
+    Button buttonRooms;
+    @FXML
+    Button buttonStartPrivateChat;
 
 
     private boolean register = false;
@@ -59,6 +64,7 @@ public class ClientController {
     private String roomNames = "";
     private String room = "";
     private String currentRoom = "";
+    private String userNames = "";
 
 
     public void setClient(Client client) throws IOException, ClassNotFoundException {
@@ -68,6 +74,72 @@ public class ClientController {
         this.client.getClientReader().start();
         this.client.setOut(new DataOutputStream(this.client.getServer().getOutputStream()));
         this.client.setConnected(true);
+    }
+
+    public void startPrivateChat() throws IOException {
+        Button a = null;
+        for(Node n : vBoxUsers.getChildren()) {
+            if(n.getStyle().equals("-fx-text-fill: blue;")){
+                a = (Button)n;
+            }
+        }
+        if (a != null){
+            StringBuilder userToChatWith = new StringBuilder(a.getText());
+            int i = 0;
+            while(userToChatWith.charAt(i) != '('){
+                i++;
+            }
+            userToChatWith.delete(i-1, userToChatWith.length());
+            client.sendMessage("/joinPrivateRoom+" + userToChatWith.toString());
+            this.room = userToChatWith.toString();
+
+        }
+    }
+
+    public void showRooms(){
+        updateRooms();
+        vBoxRooms.setVisible(true);
+        buttonUpdateRooms.setVisible(true);
+        buttonJoinRoom.setVisible(true);
+        vBoxUsers.setVisible(false);
+    }
+
+    public void showUsers() throws IOException {
+        client.sendMessage("/updateUsers");
+        updateUsers();
+        vBoxUsers.setVisible(true);
+        vBoxRooms.setVisible(false);
+        buttonUpdateRooms.setVisible(false);
+        buttonJoinRoom.setVisible(false);
+    }
+
+    public void updateUsers() throws IOException {
+        vBoxUsers.getChildren().clear();
+        StringBuilder userNamesTemp = new StringBuilder();
+        userNamesTemp.append(userNames);
+        if(!userNamesTemp.toString().equals("")) {
+            while(userNamesTemp.charAt(0) != '+') {
+                userNamesTemp.deleteCharAt(0);
+            }
+            userNamesTemp.deleteCharAt(0);
+
+            while(userNamesTemp.length() != 0){
+                StringBuilder buttonData = new StringBuilder();
+                while(userNamesTemp.charAt(0) != '+'){
+                    buttonData.append(userNamesTemp.charAt(0));
+                    userNamesTemp.deleteCharAt(0);
+                }
+                userNamesTemp.deleteCharAt(0);
+                Button button = new Button(buttonData.toString());
+                button.setOnMouseClicked(e -> {
+                    for(Node n : vBoxUsers.getChildren()) {
+                        n.setStyle("-fx-text-fill: black;");
+                    }
+                    button.setStyle(("-fx-text-fill: blue;"));
+                });
+                vBoxUsers.getChildren().add(button);
+            }
+        }
     }
 
     public void updateRooms(){
@@ -241,7 +313,8 @@ public class ClientController {
         vBoxRooms.setVisible(true);
         buttonUpdateRooms.setVisible(true);
         buttonJoinRoom.setVisible(true);
-        labelRooms.setVisible(true);
+        buttonRooms.setVisible(true);
+        buttonUsers.setVisible(true);
     }
 
     public void logOut() throws IOException {
@@ -258,9 +331,10 @@ public class ClientController {
         vBoxRooms.setVisible(false);
         buttonUpdateRooms.setVisible(false);
         buttonJoinRoom.setVisible(false);
-        labelRooms.setVisible(false);
         client.setLoggedIn(false);
         client.setConnected(false);
+        buttonRooms.setVisible(false);
+        buttonUsers.setVisible(false);
     }
 
     public void setRoomNames(String roomNames) {
@@ -277,5 +351,13 @@ public class ClientController {
 
     public String getCurrentRoom() {
         return currentRoom;
+    }
+
+    public String getUserNames() {
+        return userNames;
+    }
+
+    public void setUserNames(String userNames) {
+        this.userNames = userNames;
     }
 }

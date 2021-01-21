@@ -189,6 +189,24 @@ public class Server extends Application {
         return roomNames.toString();
     }
 
+    public String encodeUserNames() {
+        StringBuilder userNames = new StringBuilder();
+        userNames.append("/userNames+");
+        for(String s: users.keySet()){
+            userNames.append(s);
+            userNames.append(" (");
+            if(users.get(s).isOnline()){
+                userNames.append("online");
+            }
+            else{
+                userNames.append("offline");
+            }
+            userNames.append(")");
+            userNames.append("+");
+        }
+        return userNames.toString();
+    }
+
     public void showInServerApp(String message) throws IOException {
         controller.getTxtAreaServer().appendText(message + "\n");
     }
@@ -240,6 +258,8 @@ public class Server extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
+
 }
 
 /*public void runServer () throws IOException {
