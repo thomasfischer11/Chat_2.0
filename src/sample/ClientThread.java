@@ -119,6 +119,8 @@ public class ClientThread extends Thread implements Serializable{
         for(ClientThread a : server.getClientThreads()) {
             a.sendMessage(server.encodeRoomNames());
         }
+        //update all User-Interfaces
+        server.sendToAll((server.encodeUserNames()));
     }
 
     private void registerLogin() throws IOException {
@@ -164,6 +166,8 @@ public class ClientThread extends Thread implements Serializable{
             sendMessage(server.encodeRoomNames());
             server.writeInServerLog("User "+ clientName + " logged in.");
             Platform.runLater(vBoxRoomsUpdater);
+            //update all User-Interfaces
+            server.sendToAll((server.encodeUserNames()));
 
         }
         else {
@@ -190,6 +194,8 @@ public class ClientThread extends Thread implements Serializable{
             server.writeInServerLog("New User "+ clientName + " was registered.");
             sendMessage(server.encodeRoomNames());
             Platform.runLater(vBoxRoomsUpdater);
+            //update all User-Interfaces
+            server.sendToAll((server.encodeUserNames()));
 
         }
     }

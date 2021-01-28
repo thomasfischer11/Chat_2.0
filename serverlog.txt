@@ -394,3 +394,124 @@ Sent message '123 connected' to all except Thread-4.
 User 123 logged in.
 Sent message '123 disconnected' to all users.
 User 123 logged out.
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+User 123 was banned from the server.
+Sent message '123 was banned from the server.' to all users.
+Sent message '1233214 connected' to all except Thread-5.
+New User 1233214 was registered.
+Sent message '1233214 disconnected' to all users.
+User 1233214 logged out.
+Sent message '1233214 connected' to all except Thread-6.
+User 1233214 logged in.
+Sent message '1233214 disconnected' to all users.
+User 1233214 logged out.
+Sent message '1233214 connected' to all except Thread-7.
+User 1233214 logged in.
+Sent message '1233214 disconnected' to all users.
+User 1233214 logged out.
+Sent message '1233214 connected' to all except Thread-8.
+User 1233214 logged in.
+Sent message '1233214 disconnected' to all users.
+User 1233214 logged out.
+Sent message '1233214 connected' to all except Thread-9.
+User 1233214 logged in.
+Sent message '1233214 disconnected' to all users.
+User 1233214 logged out.
+Sent message '1233214 connected' to all except Thread-10.
+User 1233214 logged in.
+Sent message '1233214 disconnected' to all users.
+User 1233214 logged out.
+User 123 was unbanned from the server.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-5.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-6.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-7.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '123 connected' to all except Thread-8.
+User 123 logged in.
+User 123 was kicked from the server.
+Sent message '123 was kicked from the server.' to all users.
+Sent message '123 connected' to all except Thread-9.
+User 123 logged in.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '/userNames+a (offline)+123 (online)+1234 (offline)+1233214 (offline)+' to all users.
+User 1233214 has been removed from registered Users.
+Sent message '/userNames+a (offline)+123 (online)+1234 (offline)+' to all users.
+User 1234 has been removed from registered Users.
+Sent message '/userNames+a (offline)+123 (online)+' to all users.
+Sent message '1234 connected' to all except Thread-5.
+New User 1234 was registered.
+Sent message '/userNames+a (offline)+123 (online)+1234 (online)+' to all users.
+User 1234 was kicked from the server.
+Sent message '1234 was kicked from the server.' to all users.
+Sent message '/userNames+a (offline)+123 (online)+1234 (offline)+' to all users.
+Sent message '1234 connected' to all except Thread-6.
+User 1234 logged in.
+Sent message '/userNames+a (offline)+123 (online)+1234 (online)+' to all users.
+User 123 was banned from the server.
+Sent message '123 was banned from the server.' to all users.
+Sent message '/userNames+a (offline)+123 (offline)+1234 (online)+' to all users.
+User 123 was unbanned from the server.
+Sent message '123 connected' to all except Thread-7.
+User 123 logged in.
+Sent message '/userNames+a (offline)+123 (online)+1234 (online)+' to all users.
+User 1234 was banned from the server.
+Sent message '1234 was banned from the server.' to all users.
+Sent message '/userNames+a (offline)+123 (online)+1234 (offline)+' to all users.
+User 1234 was unbanned from the server.
+Sent message '1234 connected' to all except Thread-8.
+User 1234 logged in.
+Sent message '/userNames+a (offline)+123 (online)+1234 (online)+' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '/userNames+a (offline)+123 (offline)+1234 (online)+' to all users.
+Sent message '123 connected' to all except Thread-9.
+User 123 logged in.
+Sent message '/userNames+a (offline)+123 (online)+1234 (online)+' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '/userNames+a (offline)+123 (offline)+1234 (online)+' to all users.
+Sent message '1234 disconnected' to all users.
+User 1234 logged out.
+Sent message '/userNames+a (offline)+123 (offline)+1234 (offline)+' to all users.
+Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '/userNames+a (offline)+123 (online)+1234 (offline)+' to all users.
+Sent message '4312312 connected' to all except Thread-5.
+New User 4312312 was registered.
+Sent message '/userNames+a (offline)+4312312 (online)+123 (online)+1234 (offline)+' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '/userNames+a (offline)+4312312 (online)+123 (offline)+1234 (offline)+' to all users.
+Sent message '123 connected' to all except Thread-6.
+User 123 logged in.
+Sent message '/userNames+a (offline)+4312312 (online)+123 (online)+1234 (offline)+' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '/userNames+a (offline)+4312312 (online)+123 (offline)+1234 (offline)+' to all users.
+Sent message '4312312 disconnected' to all users.
+User 4312312 logged out.
+Sent message '/userNames+a (offline)+4312312 (offline)+123 (offline)+1234 (offline)+' to all users.
+User 4312312 has been removed from registered Users.
+Sent message '/userNames+a (offline)+123 (offline)+1234 (offline)+' to all users.
+User a has been removed from registered Users.
+Sent message '/userNames+123 (offline)+1234 (offline)+' to all users.
+Server is stopped by command...

@@ -329,6 +329,7 @@ public class ClientController {
         labelError.setVisible(true);
         labelCurrentRoom.setVisible(false);
         vBoxRooms.setVisible(false);
+        vBoxUsers.setVisible(false);
         buttonUpdateRooms.setVisible(false);
         buttonJoinRoom.setVisible(false);
         client.setLoggedIn(false);

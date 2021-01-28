@@ -171,6 +171,8 @@ public class ServerController {
             }
         }
         server.sendToAll(name + " was kicked from the server.");
+        //update all User-Interfaces
+        server.sendToAll((server.encodeUserNames()));
     }
 
     private void banUser(String name) throws IOException {
@@ -191,13 +193,14 @@ public class ServerController {
         }
         server.getUsers().get(name).setBanned(true);
         server.sendToAll(name + " was banned from the server.");
+        //update all User-Interfaces
+        server.sendToAll((server.encodeUserNames()));
     }
 
     private void unbanUser(String name) throws IOException {
         if (!server.getUsers().containsKey(name)) return;
         server.getUsers().get(name).setBanned(false);
         server.writeInServerLog("User "+ name + " was unbanned from the server.");
-
     }
 
     public TextArea getTxtAreaServer() {
@@ -477,7 +480,8 @@ public class ServerController {
             else
                 server.writeInServerLog("User is still online. Deletion is only allowed for offline Users.");
         }
-
+        //update all User-Interfaces
+        server.sendToAll((server.encodeUserNames()));
     }
 
     private String getSelectedUser(){
