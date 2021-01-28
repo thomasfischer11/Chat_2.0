@@ -76,7 +76,7 @@ public class ClientController {
         this.client.setConnected(true);
     }
 
-    public void startPrivateChat() throws IOException {
+    public String getSelectedUser(){
         Button a = null;
         for(Node n : vBoxUsers.getChildren()) {
             if(n.getStyle().equals("-fx-text-fill: blue;")){
@@ -90,10 +90,14 @@ public class ClientController {
                 i++;
             }
             userToChatWith.delete(i-1, userToChatWith.length());
-            client.sendMessage("/joinPrivateRoom+" + userToChatWith.toString());
-            this.room = userToChatWith.toString();
-
+            return userToChatWith.toString();
         }
+        return "";
+    }
+    public void startPrivateChat() throws IOException {
+        String userToChatWith = getSelectedUser();
+        client.sendMessage("/joinPrivateRoom+" + userToChatWith);
+
     }
 
     public void showRooms(){
