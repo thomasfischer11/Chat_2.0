@@ -70,6 +70,7 @@ public class ClientController {
     private String room = "";
     private String currentRoom = "";
     private String userNames = "";
+    private HashMap<String, privateChatController> privateChats = new HashMap<>();
 
 
     public void setClient(Client client) throws IOException, ClassNotFoundException {
@@ -102,26 +103,29 @@ public class ClientController {
 
     public void startPrivateChat() throws IOException {
         String userToChatWith = getSelectedUser();
+        if(!privateChats.containsKey(userToChatWith)){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("privateChatInterface.fxml"));
+            Parent root = (Parent)fxmlLoader.load();
+            Scene secondScene = new Scene(root);
+            fxmlLoader.<privateChatController>getController().setClient(client);
+            fxmlLoader.<privateChatController>getController().setChatUser(userToChatWith);
+            privateChats.put(userToChatWith, fxmlLoader.<privateChatController>getController());
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("privateChatInterface.fxml"));
-        Parent root = (Parent)fxmlLoader.load();
-        Scene secondScene = new Scene(root);
-        fxmlLoader.<privateChatController>getController().setClient(client);
-        fxmlLoader.<privateChatController>getController().setChatUser(userToChatWith);
+            // New window (Stage)
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Private Chat with "+userToChatWith);
+            newWindow.setScene(secondScene);
 
-        // New window (Stage)
-        Stage newWindow = new Stage();
-        newWindow.setTitle("Private Chat with "+userToChatWith);
-        newWindow.setScene(secondScene);
+            // Specifies the modality for new window.
+            newWindow.initModality(Modality.WINDOW_MODAL);
 
-        // Specifies the modality for new window.
-        newWindow.initModality(Modality.WINDOW_MODAL);
+            // Set position of second window, related to primary window.
+            newWindow.setX(client.getPrimaryStage().getX() + 200);
+            newWindow.setY(client.getPrimaryStage().getY() + 100);
 
-        // Set position of second window, related to primary window.
-        newWindow.setX(client.getPrimaryStage().getX() + 200);
-        newWindow.setY(client.getPrimaryStage().getY() + 100);
+            newWindow.show();
+        }
 
-        newWindow.show();
     }
 
     public void showRooms(){
@@ -129,7 +133,9 @@ public class ClientController {
         vBoxRooms.setVisible(true);
         buttonUpdateRooms.setVisible(true);
         buttonJoinRoom.setVisible(true);
+        labelCurrentRoom.setVisible(true);
         vBoxUsers.setVisible(false);
+        buttonStartPrivateChat.setVisible(false);
     }
 
     public void showUsers() throws IOException {
@@ -140,6 +146,7 @@ public class ClientController {
         vBoxRooms.setVisible(false);
         buttonUpdateRooms.setVisible(false);
         buttonJoinRoom.setVisible(false);
+        labelCurrentRoom.setVisible(false);
     }
 
     public void updateUsers() throws IOException {
