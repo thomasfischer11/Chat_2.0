@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="370.0" prefWidth="465.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.privateChatController">
+   <children>
+      <TextArea fx:id="textAreaShowChat" layoutX="24.0" layoutY="23.0" prefHeight="279.0" prefWidth="417.0" />
+      <TextField fx:id="textFieldMessages" layoutX="24.0" layoutY="320.0" onKeyPressed="#sendMessageOnEnter" prefHeight="26.0" prefWidth="417.0" promptText="Your message" />
+   </children>
+</AnchorPane>

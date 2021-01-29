@@ -22,6 +22,7 @@ public class Client extends Application  {
     private DataOutputStream out;
     private boolean connected;
     private boolean loggedIn = false;
+    private Stage primaryStage;
 
     EventHandler<WindowEvent> eventHandlerCloseWindow = windowEvent -> {
         try {
@@ -33,6 +34,7 @@ public class Client extends Application  {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ControllerSample.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         controller = fxmlLoader.<ClientController>getController();
@@ -105,4 +107,8 @@ public class Client extends Application  {
     public boolean isConnected(){return connected;}
 
     public void setConnected(boolean b){ connected = b;}
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }

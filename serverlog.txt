@@ -515,3 +515,15 @@ Sent message '/userNames+a (offline)+123 (offline)+1234 (offline)+' to all users
 User a has been removed from registered Users.
 Sent message '/userNames+123 (offline)+1234 (offline)+' to all users.
 Server is stopped by command...
+Sent message '123 connected' to all except Thread-4.
+User 123 logged in.
+Sent message '/userNames+123 (online)+1234 (offline)+' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '/userNames+123 (offline)+1234 (offline)+' to all users.
+Sent message '123 connected' to all except Thread-5.
+User 123 logged in.
+Sent message '/userNames+123 (online)+1234 (offline)+' to all users.
+Sent message '123 disconnected' to all users.
+User 123 logged out.
+Sent message '/userNames+123 (offline)+1234 (offline)+' to all users.

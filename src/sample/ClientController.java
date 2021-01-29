@@ -1,13 +1,18 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -94,10 +99,29 @@ public class ClientController {
         }
         return "";
     }
+
     public void startPrivateChat() throws IOException {
         String userToChatWith = getSelectedUser();
-        client.sendMessage("/joinPrivateRoom+" + userToChatWith);
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("privateChatInterface.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        Scene secondScene = new Scene(root);
+        fxmlLoader.<privateChatController>getController().setClient(client);
+        fxmlLoader.<privateChatController>getController().setChatUser(userToChatWith);
+
+        // New window (Stage)
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Private Chat with "+userToChatWith);
+        newWindow.setScene(secondScene);
+
+        // Specifies the modality for new window.
+        newWindow.initModality(Modality.WINDOW_MODAL);
+
+        // Set position of second window, related to primary window.
+        newWindow.setX(client.getPrimaryStage().getX() + 200);
+        newWindow.setY(client.getPrimaryStage().getY() + 100);
+
+        newWindow.show();
     }
 
     public void showRooms(){
@@ -112,6 +136,7 @@ public class ClientController {
         client.sendMessage("/updateUsers");
         updateUsers();
         vBoxUsers.setVisible(true);
+        buttonStartPrivateChat.setVisible(true);
         vBoxRooms.setVisible(false);
         buttonUpdateRooms.setVisible(false);
         buttonJoinRoom.setVisible(false);
