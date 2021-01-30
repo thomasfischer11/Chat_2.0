@@ -23,6 +23,7 @@ public class Client extends Application  {
     private boolean connected;
     private boolean loggedIn = false;
     private Stage primaryStage;
+    private String name;
 
     EventHandler<WindowEvent> eventHandlerCloseWindow = windowEvent -> {
         try {
@@ -56,6 +57,10 @@ public class Client extends Application  {
     public void sendMessage(String message) throws IOException {
         out.writeUTF(message);
         if (isLoggedIn()) controller.getTxtFieldClient().setText("");
+    }
+
+    public void sendMessagePrivate(String message) throws IOException {
+        out.writeUTF("/private+" + message);
     }
 
     public void reconnect () throws IOException, ConnectException {
@@ -110,5 +115,13 @@ public class Client extends Application  {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

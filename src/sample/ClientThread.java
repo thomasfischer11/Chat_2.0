@@ -66,7 +66,16 @@ public class ClientThread extends Thread implements Serializable{
                     sendMessage(server.encodeUserNames());
                 }
                 else if(clientMessage.startsWith("/joinPrivateRoom+")){
-
+                    clientMessage = clientMessage.substring(17);
+                    server.sendPrivate("/startPrivateChat", this.clientName, clientMessage);
+                }
+                else if(clientMessage.startsWith("/private+")){
+                    clientMessage = clientMessage.substring(9);
+                    int i;
+                    for(i = 0; clientMessage.charAt(i) != '+' ;i++){}
+                    String to = clientMessage.substring(0, i);
+                    clientMessage = clientMessage.substring(i+1);
+                    server.sendPrivate(clientMessage, this.clientName, to);
                 }
                 else if(clientMessage.startsWith("/joinRoom+")){
                     StringBuilder roomName = new StringBuilder();

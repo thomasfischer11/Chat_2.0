@@ -1,14 +1,19 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.WindowEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class privateChatController {
+
+
     @FXML
     TextArea textAreaShowChat;
     @FXML
@@ -17,8 +22,16 @@ public class privateChatController {
     private Client client;
     private String chatUser;
 
+    EventHandler<WindowEvent> eventHandlerClosePrivateChat = windowEvent -> {
+        try {
+            leaveChat();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
+
     @FXML
-    private void sendMessageOnEnter(KeyEvent event){
+    private void sendMessageOnEnter(KeyEvent event) throws IOException {
         if (event.getCode().equals(KeyCode.ENTER)) {
             String txt = textFieldMessages.getText();
             int length = txt.length();
@@ -29,11 +42,11 @@ public class privateChatController {
                         return;
                     }
                     for (String subString : splitEqually(txt, 50)) {
-                        showMessage(subString);
+                        sendMessage(subString);
                     }
                     return;
                 }
-                showMessage(txt);
+                sendMessage(txt);
             }
         }
     }
@@ -46,10 +59,23 @@ public class privateChatController {
         return ret;
     }
 
-    public void showMessage(String string){
-        textAreaShowChat.appendText(string);
+    private void sendMessage (String message) throws IOException {
+        if (client.getController().getPrivateChats().containsKey(chatUser)){
+            client.sendMessagePrivate(chatUser + "+" + message);
+            textFieldMessages.setText("");
+            showMessage("You: " + message);
+        }
+        else textFieldMessages.setText("");
     }
 
+    public void showMessage(String message){
+        textAreaShowChat.appendText(message + "\n");
+    }
+
+    public void leaveChat () throws IOException {
+        client.sendMessagePrivate(chatUser + "+" + "[left chat]");
+        client.getController().getPrivateChats().remove(chatUser);
+    }
 
     public Client getClient() {
         return client;
@@ -65,5 +91,9 @@ public class privateChatController {
 
     public void setChatUser(String chatUser) {
         this.chatUser = chatUser;
+    }
+
+    public TextArea getTextArea(){
+        return textAreaShowChat;
     }
 }

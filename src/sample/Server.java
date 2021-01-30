@@ -125,8 +125,17 @@ public class Server extends Application {
         writeInServerLog("Sent message '"+ message+ "' to all except "+ excludeUser.getName()+".");
     }
 
+    void sendPrivate(String message, String fromName, String toName) throws IOException {
+        showInServerApp("Private Message from " + fromName + " to " + toName + ": " + message);
+        for (ClientThread aUser : clientThreads) {
+            if (aUser.getClientName().equals(toName)){
+                aUser.sendMessage("/private+" + fromName + "+" + message);
+            }
+        }
+    }
+
     public void writeInServerLog(String log) throws IOException {
-        BufferedWriter  myWriter = new BufferedWriter (new FileWriter(serverLog, true) ) ;
+        BufferedWriter myWriter = new BufferedWriter (new FileWriter(serverLog, true) ) ;
         myWriter.write(log+ "\n");
         myWriter.close();
         controller.getTxtAreaServer().appendText(log+"\n");

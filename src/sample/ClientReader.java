@@ -102,6 +102,16 @@ public class ClientReader extends Thread {
             client.getController().labelCurrentRoom.setText("Current room: " + client.getController().getCurrentRoom());
         }
     };
+    Runnable privateMessageUpdater = new Runnable() {
+        @Override
+        public void run(){
+            try {
+                client.getController().receivePrivateMessage(messageReceived);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     ClientReader(Socket server , Client client){
         this.server = server;
@@ -134,6 +144,10 @@ public class ClientReader extends Thread {
                     else if(messageReceived.equals("/requestPW")) client.getController().getPW();
                     else if(messageReceived.equals("/registered") || messageReceived.equals("/loggedIn")) {
                         Platform.runLater(loggedInUpdater);
+                    }
+                    else if(messageReceived.startsWith("/private")){
+                        messageReceived = messageReceived.substring(9);
+                        Platform.runLater(privateMessageUpdater);
                     }
                     else if (messageReceived.startsWith("/err")){
                         if (messageReceived.equals("/errNotRegistered")) {

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -72,7 +74,6 @@ public class ClientController {
     private String userNames = "";
     private HashMap<String, privateChatController> privateChats = new HashMap<>();
 
-
     public void setClient(Client client) throws IOException, ClassNotFoundException {
         this.client = client;
         this.client.setServer(new Socket("localhost", 1312));
@@ -95,14 +96,21 @@ public class ClientController {
             while(userToChatWith.charAt(i) != '('){
                 i++;
             }
+            if (userToChatWith.substring(i).equals("(offline)")) return null;
             userToChatWith.delete(i-1, userToChatWith.length());
             return userToChatWith.toString();
         }
-        return "";
+        return null;
     }
 
     public void startPrivateChat() throws IOException {
         String userToChatWith = getSelectedUser();
+        if (userToChatWith == null || userToChatWith.equals(client.getName())) return;
+        client.sendMessage("/joinPrivateRoom+" + userToChatWith);
+        setPrivateChatWith(userToChatWith);
+    }
+
+    public void setPrivateChatWith(String userToChatWith) throws IOException {
         if(!privateChats.containsKey(userToChatWith)){
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("privateChatInterface.fxml"));
             Parent root = (Parent)fxmlLoader.load();
@@ -122,10 +130,29 @@ public class ClientController {
             // Set position of second window, related to primary window.
             newWindow.setX(client.getPrimaryStage().getX() + 200);
             newWindow.setY(client.getPrimaryStage().getY() + 100);
-
+            newWindow.onCloseRequestProperty().set(fxmlLoader.<privateChatController>getController().eventHandlerClosePrivateChat);
             newWindow.show();
         }
+    }
 
+    public void receivePrivateMessage(String message) throws IOException {
+        int i;
+        for(i = 0; message.charAt(i) != '+' ;i++){}
+        String from = message.substring(0, i);
+        message = message.substring(i+1);
+        if (message.equals("/startPrivateChat")){
+            setPrivateChatWith(from);
+        }
+        else {
+            if (privateChats.get(from) == null) return;
+            privateChats.get(from).showMessage(from + ": " + message);
+            if (message.equals("[left chat]")){
+                Stage stage = (Stage) privateChats.get(from).getTextArea().getScene().getWindow();
+                stage.close();
+                privateChats.remove(from);
+                client.showMessage(from + " has left your private chat.");
+            }
+        }
     }
 
     public void showRooms(){
@@ -351,10 +378,14 @@ public class ClientController {
         buttonJoinRoom.setVisible(true);
         buttonRooms.setVisible(true);
         buttonUsers.setVisible(true);
+        client.setName(txtFieldUsername.getText());
     }
 
     public void logOut() throws IOException {
         if (client.isConnected()) client.sendMessage("/logout");
+        for (privateChatController chat: privateChats.values()) {
+            chat.leaveChat();
+        }
         buttonConnect.setText("Log in");
         txtFieldClient.setEditable(false);
         labelLoginRegister.setVisible(true);
@@ -372,6 +403,8 @@ public class ClientController {
         client.setConnected(false);
         buttonRooms.setVisible(false);
         buttonUsers.setVisible(false);
+        buttonStartPrivateChat.setVisible(false);
+        client.setName(null);
     }
 
     public void setRoomNames(String roomNames) {
@@ -396,5 +429,9 @@ public class ClientController {
 
     public void setUserNames(String userNames) {
         this.userNames = userNames;
+    }
+
+    public HashMap getPrivateChats (){
+        return privateChats;
     }
 }
