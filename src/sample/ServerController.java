@@ -158,6 +158,7 @@ public class ServerController {
         if (!server.getUsers().containsKey(name) || !server.getUsers().get(name).isOnline()) return;
         for (ClientThread aUser : server.getClientThreads()) {
             if (aUser.getClientName().equals(name)) {
+                aUser.sendMessage("/leaveChats");
                 aUser.sendMessage("You were kicked from the Server");
                 server.getUsers().get(name).setOnline(false);
                 server.getUsers().get(name).setRoom("");
@@ -179,6 +180,7 @@ public class ServerController {
         if (!server.getUsers().containsKey(name)) return;
         for (ClientThread aUser : server.getClientThreads()) {
             if (aUser.getClientName().equals(name)) {
+                aUser.sendMessage("/leaveChats");
                 aUser.sendMessage("You were banned from the Server");
                 server.getUsers().get(name).setOnline(false);
                 server.getUsers().get(name).setRoom("");

@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
@@ -75,6 +76,8 @@ public class privateChatController {
     public void leaveChat () throws IOException {
         client.sendMessagePrivate(chatUser + "+" + "[left chat]");
         client.getController().getPrivateChats().remove(chatUser);
+        Stage stage = (Stage) textAreaShowChat.getScene().getWindow();
+        stage.close();
     }
 
     public Client getClient() {

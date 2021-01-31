@@ -112,6 +112,16 @@ public class ClientReader extends Thread {
             }
         }
     };
+    Runnable leaveChatsUpdater = new Runnable() {
+        @Override
+        public void run(){
+            try {
+                client.getController().leaveChats();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     ClientReader(Socket server , Client client){
         this.server = server;
@@ -149,6 +159,9 @@ public class ClientReader extends Thread {
                         messageReceived = messageReceived.substring(9);
                         Platform.runLater(privateMessageUpdater);
                     }
+                    else if(messageReceived.equals("/leaveChats")){
+                        Platform.runLater(leaveChatsUpdater);
+                    }
                     else if (messageReceived.startsWith("/err")){
                         if (messageReceived.equals("/errNotRegistered")) {
                             Platform.runLater(ErrorNotRegisteredUpdater);
@@ -178,7 +191,6 @@ public class ClientReader extends Thread {
             client.getOut().close();
             client.setConnected(false);
             Platform.runLater(logOut);
-
         } catch (IOException | InterruptedException ignored) { }
     }
 }

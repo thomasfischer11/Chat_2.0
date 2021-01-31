@@ -8,3 +8,167 @@ Sent message 'thomas disconnected' to all users.
 User thomas logged out.
 Sent message '/userNames+thomas (offline)+' to all users.
 Server is stopped by command...
+Sent message 'thomas connected' to all except Thread-4.
+User thomas logged in.
+Sent message '/userNames+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-5.
+New User peter was registered.
+Sent message '/userNames+peter (online)+thomas (online)+' to all users.
+Sent message 'random connected' to all except Thread-6.
+New User random was registered.
+Sent message '/userNames+random (online)+peter (online)+thomas (online)+' to all users.
+Sent message 'peter: moin' to room raum1.
+Room raum1 was renamed to raum2.
+Sent message 'thomas disconnected' to all users.
+User thomas logged out.
+Sent message '/userNames+random (online)+peter (online)+thomas (offline)+' to all users.
+Sent message 'peter: rip' to room raum2.
+Sent message 'thomas connected' to all except Thread-7.
+User thomas logged in.
+Sent message '/userNames+random (online)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: moin moin' to room raum2.
+Sent message 'thomas: chillig' to room raum2.
+Sent message 'thomas disconnected' to all users.
+User thomas logged out.
+Sent message '/userNames+random (online)+peter (online)+thomas (offline)+' to all users.
+Sent message 'random disconnected' to all users.
+User random logged out.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'peter disconnected' to all users.
+User peter logged out.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (offline)+' to all users.
+Server is stopped by command...
+Sent message 'thomas connected' to all except Thread-6.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-4.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'random connected' to all except Thread-5.
+User random logged in.
+Sent message '/userNames+random (online)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: moin moin' to room raum2.
+Sent message 'peter: jojo' to room raum2.
+User thomas was banned from the server.
+Sent message 'thomas was banned from the server.' to all users.
+Sent message '/userNames+random (online)+peter (online)+thomas (offline)+' to all users.
+Sent message 'thomas connected' to all except Thread-5.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-4.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+User thomas was banned from the server.
+Sent message 'thomas was banned from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+User thomas was banned from the server.
+Sent message 'thomas was banned from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+User thomas was unbanned from the server.
+Sent message 'thomas connected' to all except Thread-7.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: moin moin' to room raum2.
+Sent message 'peter: jojo' to room raum2.
+User thomas was banned from the server.
+Sent message 'thomas was banned from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'thomas connected' to all except Thread-5.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-4.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: moin' to room raum2.
+User thomas was banned from the server.
+Sent message 'thomas was banned from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Server is stopped by command...
+User thomas was unbanned from the server.
+Sent message 'thomas connected' to all except Thread-5.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-4.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas disconnected' to all users.
+User thomas logged out.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'peter disconnected' to all users.
+User peter logged out.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (offline)+' to all users.
+User thomas was unbanned from the server.
+Sent message 'thomas connected' to all except Thread-4.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-5.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas disconnected' to all users.
+User thomas logged out.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'thomas connected' to all except Thread-6.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+User thomas was kicked from the server.
+Sent message 'thomas was kicked from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+User thomas was unbanned from the server.
+Sent message 'thomas connected' to all except Thread-4.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-5.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas disconnected' to all users.
+User thomas logged out.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'thomas connected' to all except Thread-6.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+User thomas was kicked from the server.
+Sent message 'thomas was kicked from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+User thomas was unbanned from the server.
+Sent message 'thomas connected' to all except Thread-5.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-4.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: moin' to room raum2.
+Server is stopped by command...
+Sent message 'thomas connected' to all except Thread-5.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (online)+' to all users.
+Sent message 'peter connected' to all except Thread-4.
+User peter logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: moin' to room raum2.
+User thomas was kicked from the server.
+Sent message 'thomas was kicked from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'thomas connected' to all except Thread-6.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: jo' to room raum2.
+User thomas was banned from the server.
+Sent message 'thomas was banned from the server.' to all users.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+User thomas was unbanned from the server.
+Sent message 'thomas connected' to all except Thread-7.
+User thomas logged in.
+Sent message '/userNames+random (offline)+peter (online)+thomas (online)+' to all users.
+Sent message 'thomas: rip' to room raum2.
+Sent message 'thomas: chillig' to room raum2.
+New room raum43 has been created.
+Sent message '/roomsUpdated' to all users.
+Sent message 'thomas: hallo' to room raum43.
+Sent message 'peter: moin' to room raum43.
+Sent message 'thomas disconnected' to all users.
+User thomas logged out.
+Sent message '/userNames+random (offline)+peter (online)+thomas (offline)+' to all users.
+Sent message 'peter disconnected' to all users.
+User peter logged out.
+Sent message '/userNames+random (offline)+peter (offline)+thomas (offline)+' to all users.
+Server is stopped by command...

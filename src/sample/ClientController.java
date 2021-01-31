@@ -155,6 +155,12 @@ public class ClientController {
         }
     }
 
+    public void leaveChats() throws IOException {
+        for (privateChatController chat: privateChats.values()) {
+            chat.leaveChat();
+        }
+    }
+
     public void showRooms(){
         updateRooms();
         vBoxRooms.setVisible(true);
@@ -382,9 +388,11 @@ public class ClientController {
     }
 
     public void logOut() throws IOException {
-        if (client.isConnected()) client.sendMessage("/logout");
-        for (privateChatController chat: privateChats.values()) {
-            chat.leaveChat();
+        if (!privateChats.isEmpty()) {
+            leaveChats();
+        }
+        if (client.isConnected()) {
+            client.sendMessage("/logout");
         }
         buttonConnect.setText("Log in");
         txtFieldClient.setEditable(false);
